@@ -1,0 +1,53 @@
+#!/usr/bin/perl -w
+use strict;
+use Pod::Usage;
+
+unless (@ARGV){
+    pod2usage(-verbose => 0);
+}
+my $command = shift (@ARGV);
+my $com_path = '';
+
+if ($command =~ /^-/){
+    pod2usage(-verbose => 0);
+}
+
+if ($0 =~ /^(.*)\/coval$/){
+    $com_path = $1;
+}
+
+my $arg = join (' ', @ARGV);
+
+
+if ($command eq 'refine'){
+    system ("$com_path/coval-refine-bam.pl $arg");
+}
+elsif ($command eq 'call'){
+    system ("$com_path/coval-call-pileup.pl $arg");
+}
+elsif ($command eq 'call-sam'){
+    system ("$com_path/coval-call-sam.pl $arg");
+}
+elsif ($command eq 'simulate'){
+    system ("$com_path/coval-simulate.pl $arg");
+}
+else{
+    pod2usage(-verbose => 0);
+}
+
+
+=head1 SYNOPSIS
+
+coval [command] [options] <inputfile>
+
+  Command:
+    refine          realign/correct/filter reads in a sorted sam file
+    call            filter/call SNPs and indels in a pileup file
+    call-sam        filter/call SNPs and indels in a sam file
+    simulate        generate a simulated reference genome
+
+  General options:
+    --help or -h    output help message
+
+=cut
+
