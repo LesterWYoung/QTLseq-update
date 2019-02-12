@@ -1,0 +1,2 @@
+This file is being written on my desktop machine using terminal, not using the GitHub interface. 
+I'm going to push this from here and see what it does to the structure of thre repository
