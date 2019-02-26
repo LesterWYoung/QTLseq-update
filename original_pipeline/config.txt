@@ -2,9 +2,10 @@
 # global environment				
 # ##################################################				
 Key0_TopPath_Scripts="./ibrc_scripts" 				# it can be described as either relative path name style or absolute path name style.
-Key0_TopPath_Coval="./execute_Coval/Coval-1.4"    				# it can be described as either relative path name style or absolute path name style.
+Key0_TopPath_Coval="./execute_Coval/Coval-1.4"    		# it can be described as either relative path name style or absolute path name style.
 				
-Key0_TopPath_Work="."				# usually set "." because "." means current framework
+Key0_TopPath_Work="."						# usually set "." because "." means current framework
+Key0_Make_secondary_reference="yes/no"				#delete one or the other. Leave "yes" to create a secondary ref, otherwise leave "no"
 				
 # ##################################################				
 # Read file 				
