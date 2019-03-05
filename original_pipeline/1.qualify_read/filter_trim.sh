@@ -7,52 +7,54 @@
 #. ../0.common/common.fnc	#load common variables, including Key1_My_cultivar_sample_name
 				# and $Key1_Phred_quality_score_for_my_cultivar (default=30)
 
-# if parental readfiles are missing and only README present
-if [ `find ../parental_readfiles/* | wc -l` -eq 1 ]
+find ../parental_readfiles/*.fastq.gz > readfilelist
+numfiles=`wc -l < readfilelist`
+
+if [ $numfiles -eq 0 ]      	# if no readfiles are present
 	then echo "Parental readfiles are missing. Put them in ../parental_readfiles using name_R[12].fastq.gz format"
 	exit 1
 fi
 
-find ../parental_readfiles/*.fastq.gz > readfilelist
-if [ wc -l readfilelist -gt 2 ]; then	#if more than two readfiles are present, then exit
+if [ $numfiles -gt 2 ]; then	#if more than two readfiles are present, then exit
 	echo "There are more than two readfiles in ../parental_readfiles/"
 	exit 2
 fi
 
-if [ wc -l readfilelist -eq 1 ]; then	#if there is only one readfile present, also exit
-	echo "Two readfiles are required (one forward and one reverse) are reqiuired in ../parental_readfiles/"
+if [ $numfiles -eq 1 ]; then	#if there is only one readfile present, also exit
+	echo "Two readfiles are required (one forward and one reverse) in ../parental_readfiles/"
 	exit 3
 fi
 
 while read -r readfile
 	do
 	readfilename=`cut -f 3 -d "/" <<< $readfile`	#gets file name, removing path
-	echo "filename being used = $readfilename"
+							 echo "filename being used = $readfilename"
 							#can maybe change this to $Key1_My_cultivar_sample_name
+
+	parentname=`cut -f 1 -d "_" | cut -f 2 -d "/" <<< $readfile`	#gets name of cultivar
 
         read_direction=`cut -f 2 -d "_" <<< $readfilename | cut -f 1 -d "."`
         						#searches for "-R[12]." to get read direction
-	echo "read dir = $read_direction"
+							echo "read dir = $read_direction"
 
 	if [[ $read_direction == "R1" ]]; then		#if foward readfile, then assign forward variable names
         	echo "found R1"
 		readfileR1=$readfile
-		outfileR1paired="secondary_readfiles/${readfilename}-paired_R1.fastq.gz"
-		outfileR1unpaired="secondary_readfiles/${readfilename}-unpaired_R1.fastq.gz"
+		outfileR1paired="secondary_readfiles/$parentname-paired_R1.fastq.gz"
+		outfileR1unpaired="secondary_readfiles/$parentname-unpaired_R1.fastq.gz"
         else
-
-        if [[ $read_direction == "R2" ]]
-        then
         	echo "found R2"
 		readfileR2=$readfile
-		outfileR2paired="secondary_readfiles/${readfilename}-paired_R2.fastq.gz"
-		outfileR2unpaired="secondary_readfiles${readfilename}-unpaired_R2.fastq.gz"
+		outfileR2paired="secondary_readfiles/$parentname-paired_R2.fastq.gz"
+		outfileR2unpaired="secondary_readfiles$parentname-unpaired_R2.fastq.gz"
+
+	fi
+
+done < readfilelist
+
 echo "$readfileR1  $outfileR1paired   $outfileR1unpaired"
 echo "$readfileR2  $outfileR2paired   $outfileR2unpaired"
 
-
-
-done < readfilelist
 exit 4
 CMD="java -jar trimmomatic-0.35.jar PE"
 CMD="$CMD $readfile1 $readfile2 $outfile1paired"
