@@ -5,7 +5,7 @@ Key0_TopPath_Scripts="./ibrc_scripts" 				# it can be described as either relati
 Key0_TopPath_Coval="./execute_Coval/Coval-1.4"    		# it can be described as either relative path name style or absolute path name style.
 				
 Key0_TopPath_Work="."						# usually set "." because "." means current framework
-Key0_Make_secondary_reference="yes/no"				#delete one or the other. Leave "yes" to create a secondary ref, otherwise leave "no"
+Key0_Make_secondary_reference="yes/no"			#delete one or the other. Leave "yes" to create a secondary ref, otherwise leave "no": LY
 				
 # ##################################################				
 # Read file 				
@@ -13,23 +13,26 @@ Key0_Make_secondary_reference="yes/no"				#delete one or the other. Leave "yes" 
 Key1_Bulked_sample_name="mybulk"				
 Key1_Bulked_sample_Type_A="A"				
 Key1_Bulked_sample_Type_B="B"				
-Key1_My_cultivar_sample_name="anyname"				
+Key1_My_cultivar_sample_name="INSERT-secondary-ref-name-OR-leave-empty"	
+								#name of secondary reference. Leave as "" if secondary ref is not being generated: LY
 				
 # ##################################################				
 # Qualify read				
 # ##################################################				
 Key1_Phred_quality_score_for_bulked=30				
 Key1_Percentage_of_above_score_for_bulked=90				
-Key1_Score_type_for_bulked="sanger"                 				# "illumina" or "sanger"
-				
+Key1_Score_type_for_bulked="illumina"                 		# "illumina" or "sanger" #assuming illumina reads as of 2019: LY
+
 Key1_Phred_quality_score_for_my_cultivar=30				
 Key1_Percentage_of_above_score_for_my_cultivar=90				
-Key1_Score_type_for_my_cultivar="sanger"              				# "illumina" or "sanger"
-				
+Key1_Score_type_for_my_cultivar="illumina"              	# "illumina" or "sanger" #assuming illumina reads as of 2019: LY
+
 # ##################################################				
 # Developing reference sequence 				
 # ##################################################				
-Key2_Path_public_reference_FASTA="./downloaded_fasta/IRGSP-1.0_genome.fasta/IRGSP-1.0_genome.fasta"				
+Key2_Path_public_reference_FASTA="./downloaded_fasta/INSERT_ref_seq_fasta_filename_here"
+								#Change INSERT_ref_seq_fasta_filename_here to reference sequence
+								#Put .fasta file with reference sequence into ./downloaded_fasta 				
 				
 # --------------------				
 # coval refine 				

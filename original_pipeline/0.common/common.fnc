@@ -2,14 +2,12 @@
 # global environment			
 # ##################################################			
 Set_TOPPATH_SCRIPTS(){			
-	TOPPATH_SCRIPTS=""		
+	TOPPATH_SCRIPTS="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/ibrc_scripts"		
 	echo "${TOPPATH_SCRIPTS}"		
 }			
 			
-Set_
-
 Set_TOPPATH_COVAL(){			
-	TOPPATH_COVAL=""		
+	TOPPATH_COVAL="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/execute_Coval/Coval-1.4"		
 	echo "${TOPPATH_COVAL}"		
 }			
 			
@@ -62,7 +60,7 @@ Set_READ_QOPT_MY_CULTIVAR(){
 # Bat_make_symbolic_link_of_qualified_fastq.sh.sh			
 # ==================================================			
 Set_SRC_READ_PATH_MY_CULTIVAR(){			
-	SRC_READ_PATH_MY_CULTIVAR="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/1.qualify_read/anyname/q30p90/sep_pair"		
+	SRC_READ_PATH_MY_CULTIVAR="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/1.qualify_read/anyname/q30p90/sep_pair"		
 	echo "${SRC_READ_PATH_MY_CULTIVAR}"		
 }			
 			
@@ -75,7 +73,7 @@ Set_MY_CULTIVAR_NAME(){
 # Bat_bwa2bam.sh			
 # ==================================================			
 Set_PUBLIC_REF_FASTA(){			
-	REF_FASTA="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/downloaded_fasta/IRGSP-1.0_genome.fasta/IRGSP-1.0_genome.fasta"		
+	REF_FASTA="/IRGSP-1.0_genome.fasta"		
 	echo "${REF_FASTA}"		
 }			
 			
@@ -163,7 +161,7 @@ Set_BULK_NAME_IDB(){
 			
 Set_REF_FASTA()			
 {			
-	REF_FASTA="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/2.make_consensus/90.align_to_this_fasta/00.reference/anyname_q30p90_MSR_Cov_10_S-snp_RYKMSWBDHV2ACGT.fa"		
+	REF_FASTA="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/2.make_consensus/90.align_to_this_fasta/00.reference/anyname_q30p90_MSR_Cov_10_S-snp_RYKMSWBDHV2ACGT.fa"		
 	echo "${REF_FASTA}"		
 }			
 			
@@ -171,7 +169,7 @@ Set_REF_FASTA()
 # for Bat_make_symbolic_link_of_qualified_fastq.sh			
 # --------------------------------------------------			
 Set_SRC_READ_PATH(){			
-	SRC_READ_PATH="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/1.qualify_read/equalized"		
+	SRC_READ_PATH="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/1.qualify_read/equalized"		
 			
 	echo "${SRC_READ_PATH}"		
 }			
@@ -262,7 +260,7 @@ Set_MISs()
 			
 Set_PILEUPDB_PATH()			
 {			
-	PILEUPDB_PATH="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/2.make_consensus/90.align_to_this_fasta/30.coval_call"		
+	PILEUPDB_PATH="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/2.make_consensus/90.align_to_this_fasta/30.coval_call"		
 	echo "${PILEUPDB_PATH}"		
 }			
 			

@@ -21,8 +21,7 @@ qdir_my_cultivar="q${Key1_Phred_quality_score_for_my_cultivar}p${Key1_Percentage
 qdir="q${Key1_Phred_quality_score_for_bulked}p${Key1_Percentage_of_above_score_for_bulked}"			
 			
 MKDIR="mkdir -p"			
-			
-			
+						
 if [ ! -e "${bulk_name_ida}" ] ; then			
 	CMD="mv 1.qualify_read/mybulk_A ${bulk_name_ida}"		
 	echo ${CMD}		
@@ -34,21 +33,18 @@ if [ ! -e "${bulk_name_idb}" ] ; then
 	echo ${CMD}		
 	eval ${CMD}		
 fi			
+
+#Creation of secondary reference moved to "Determine if secondary reference is being created" 			
+
+#Don't need the following direcories now
+#echo "${MKDIR} ${bulk_name_ida}/${qdir}/sep_pair"			
+#eval "${MKDIR} ${bulk_name_ida}/${qdir}/sep_pair"			
 			
-if [ ! -e "${my_cultivar_name}" ] ; then			
-	CMD="mv 1.qualify_read/anyname ${my_cultivar_name}"		
-	echo ${CMD}		
-	eval ${CMD}		
-fi			
+#echo "${MKDIR} ${bulk_name_idb}/${qdir}/sep_pair"			
+#eval "${MKDIR} ${bulk_name_idb}/${qdir}/sep_pair"			
 			
-echo "${MKDIR} ${bulk_name_ida}/${qdir}/sep_pair"			
-eval "${MKDIR} ${bulk_name_ida}/${qdir}/sep_pair"			
-			
-echo "${MKDIR} ${bulk_name_idb}/${qdir}/sep_pair"			
-eval "${MKDIR} ${bulk_name_idb}/${qdir}/sep_pair"			
-			
-echo "${MKDIR} ${my_cultivar_name}/${qdir_my_cultivar}/sep_pair"			
-eval "${MKDIR} ${my_cultivar_name}/${qdir_my_cultivar}/sep_pair"			
+#echo "${MKDIR} ${my_cultivar_name}/${qdir_my_cultivar}/sep_pair"			
+#eval "${MKDIR} ${my_cultivar_name}/${qdir_my_cultivar}/sep_pair"			
 			
 # ==================================================			
 # convert some variables 			
@@ -79,21 +75,28 @@ Key0_TopPath_Work="${abspath}"
 			
 # --------------------------------------------------			
 abspath=`relativepath_to_absolutepath ${Key2_Path_public_reference_FASTA}`			
-Key2_Path_public_reference_FASTA="${abspath}"			
-			
+Key2_Path_public_reference_FASTA="${abspath}"
+
 # --------------------------------------------------			
-# 			
+# Determine if secondary reference is being created
 # --------------------------------------------------			
-if [ ${Key0_Make_secondary_reference} = "yes/no" ] ; then
+if [[ ${Key0_Make_secondary_reference} = "yes/no" ]] ; then
 	echo "Change Key0_Make_secondary_reference in ./config.txt to yes or no"
 	exit 1
 else			
-			
-if [ ${Key2_Coval_realign_for_my_cultivar} = "yes" ] ; then			
-	Key2_Coval_realign_for_my_cultivar=""		
-else			
-	Key2_Coval_realign_for_my_cultivar="--disalign"		
-fi			
+	if [[ ${Key0_Make_secondary_reference} = "yes" ]]; then
+		CMD="mv 1.qualify_read/${my_cultivar_name}"		
+		echo ${CMD}		
+		eval ${CMD}
+	fi
+fi
+
+#Don't need the following as not using now			
+#if [ ${Key2_Coval_realign_for_my_cultivar} = "yes" ] ; then			
+#	Key2_Coval_realign_for_my_cultivar=""		
+#else			
+#	Key2_Coval_realign_for_my_cultivar="--disalign"		
+#fi			
 			
 # --------------------------------------------------			
 if [ ${Key3_Coval_realign_for_bulked} = "yes" ] ; then			
