@@ -85,9 +85,19 @@ if [[ ${Key0_Make_secondary_reference} = "yes/no" ]] ; then
 	exit 1
 else			
 	if [[ ${Key0_Make_secondary_reference} = "yes" ]]; then
-		CMD="mv 1.qualify_read/${my_cultivar_name}"		
-		echo ${CMD}		
-		eval ${CMD}
+		if [[ ${my_cultivar_name} = "INSERT-secondary-ref-name-OR-leave-empty" ]]; then
+			echo "Change Key1_My_cultivar_sample_name to secondary reference name"
+			exit 2
+		else
+			if [[ ${my_cultivar_name} = "" ]]; then
+				echo "Insert value for Key1_My_cultivar_sample_name in config.txt"
+				exit 3
+			else
+			CMD="mv 1.qualify_read/${my_cultivar_name}"		
+			echo ${CMD}		
+			eval ${CMD}
+			fi
+		fi
 	fi
 fi
 
