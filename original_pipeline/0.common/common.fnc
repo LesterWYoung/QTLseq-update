@@ -15,7 +15,7 @@ Set_TOPPATH_COVAL(){
 # for 1.qualify_read			
 # ##################################################			
 Set_TRIMMOMATIC(){			
-	TRIMMOMATIC="~/Unix/Trimmomatic/trimmomatic-0.38.jar"		
+	TRIMMOMATIC="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/ibrc_scripts/1./trimmomatic-0.38.jar"		
 	echo "${TRIMMOMATIC}"		
 }
 # ==================================================			
@@ -27,7 +27,7 @@ Set_READ_QVAL(){
 }			
 			
 Set_READ_PVAL(){			
-	READ_PVAL=90		
+	READ_PVAL=		
 	echo "${READ_PVAL}"		
 }			
 			
@@ -42,10 +42,15 @@ Set_READ_QOPT(){
 Set_READ_QVAL_MY_CULTIVAR(){			
 	READ_QVAL=30		
 	echo "${READ_QVAL}"		
+}
+
+Set_MIN_LEN_MY_CULTIVAR_READS(){
+	MIN_LEN_MY_CULTIVAR_READS=90
+	echo "${MIN_LEN_MY_CULTIVAR_READS}"
 }			
 			
 Set_READ_PVAL_MY_CULTIVAR(){			
-	READ_PVAL=90		
+	READ_PVAL=		
 	echo "${READ_PVAL}"		
 }			
 			
@@ -64,7 +69,7 @@ Set_READ_QOPT_MY_CULTIVAR(){
 # Bat_make_symbolic_link_of_qualified_fastq.sh.sh			
 # ==================================================			
 Set_SRC_READ_PATH_MY_CULTIVAR(){			
-	SRC_READ_PATH_MY_CULTIVAR="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/1.qualify_read/Adelie/q30p90/sep_pair"		
+	SRC_READ_PATH_MY_CULTIVAR="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/1.qualify_read/Adelie/q30p/sep_pair"		
 	echo "${SRC_READ_PATH_MY_CULTIVAR}"		
 }			
 			
@@ -85,7 +90,7 @@ Set_PUBLIC_REF_FASTA(){
 # Bat_run_coval-refine-bam.pl.sh			
 # ==================================================			
 Set_MIS_MATCH_FOR_MAKE_CONSENSUS(){			
-	MIS_MATCH=10		
+	MIS_MATCH="10"		
 	echo "${MIS_MATCH}"		
 }			
 			
@@ -138,7 +143,7 @@ Set_COVAL_CALL_MINQUALAVE_FOR_MAKE_CONSENSUS()
 			
 Set_COVAL_CALL_CALLTYPE_FOR_MAKE_CONSENSUS()			
 {			
-	COVALCALL_CALLTYPE="illumina"		
+	COVALCALL_CALLTYPE=""		
 	echo "${COVALCALL_CALLTYPE}"		
 			
 	# COVALCALL_CALLTYPE="sanger"		
@@ -192,7 +197,7 @@ Set_BWA_CPU()
 # --------------------------------------------------			
 Set_DONTREALIGN()			
 {			
-	DONTREALIGN=""		
+	DONTREALIGN="yes"		
 	echo "${DONTREALIGN}"		
 			
 	# DONTREALIGN=""		
@@ -246,7 +251,7 @@ Set_COVAL_CALL_MINQUALAVE()
 			
 Set_COVAL_CALL_CALLTYPE()			
 {			
-	COVALCALL_CALLTYPE="illumina"		
+	COVALCALL_CALLTYPE=""		
 	echo "${COVALCALL_CALLTYPE}"		
 			
 	# COVALCALL_CALLTYPE="sanger"		

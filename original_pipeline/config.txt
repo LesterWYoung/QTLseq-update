@@ -14,22 +14,24 @@ Key0_Make_secondary_reference="yes"			#delete one or the other. Leave "yes" to c
 Key1_Bulked_sample_name="mybulk"				
 Key1_Bulked_sample_Type_A="A"				
 Key1_Bulked_sample_Type_B="B"				
-Key1_My_cultivar_sample_name="Adelie"	
-								#name of secondary reference. Leave as "" if secondary 
+Key1_My_cultivar_sample_name="Adelie"				#name of secondary reference. Leave as "" if secondary 
 								#ref is not being generated: LY
 				
 # ##################################################				
 # Qualify read				
 # ##################################################				
-Key1_Path_to_trimmomatic="~/Unix/Trimmomatic/trimmomatic-0.38.jar"
-								# Need to insert path to trimmomatic 
+Key1_Path_to_trimmomatic="./ibrc_scripts/1./trimmomatic-0.38.jar"
+								# Need to insert path to trimmomatic. Include in ibrc_scripts/1./ LY 
 Key1_Phred_quality_score_for_bulked=30				
-Key1_Percentage_of_above_score_for_bulked=90				
-Key1_Score_type_for_bulked="illumina"                 		# "illumina" or "sanger" #assuming illumina reads as of 2019: LY
+Key1_Min_length_bulked_reads=90					# Trimmomatic removes trimmed reads shorter than this length in bulks: LY
 
-Key1_Phred_quality_score_for_my_cultivar=30				
-Key1_Percentage_of_above_score_for_my_cultivar=90				
-Key1_Score_type_for_my_cultivar="illumina"              	# "illumina" or "sanger" #assuming illumina reads as of 2019: LY
+#Key1_Percentage_of_above_score_for_bulked=90			# don't need this now: LY				
+#Key1_Score_type_for_bulked="illumina"                 		# "illumina" or "sanger" #assuming illumina reads as of 2019: LY
+
+Key1_Phred_quality_score_for_my_cultivar=30			
+Key1_Min_length_my_cultivar_reads=90				# Trimmomatic removes trimmed reads shorter than this length in secondary ref: LY
+#Key1_Percentage_of_above_score_for_my_cultivar=90		# don't need this now: LY
+#Key1_Score_type_for_my_cultivar="illumina"              	# "illumina" or "sanger" #assuming illumina reads as of 2019: LY
 
 # ##################################################				
 # Developing reference sequence 				
