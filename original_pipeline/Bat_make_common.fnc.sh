@@ -17,12 +17,11 @@ fi
 my_cultivar_name="1.qualify_read/${Key1_My_cultivar_sample_name}"			
 bulk_name_ida="1.qualify_read/${Key1_Bulked_sample_name}_${Key1_Bulked_sample_Type_A}"			
 bulk_name_idb="1.qualify_read/${Key1_Bulked_sample_name}_${Key1_Bulked_sample_Type_B}"			
-qdir_my_cultivar="q${Key1_Phred_quality_score_for_my_cultivar}p${Key1_Percentage_of_above_score_for_my_cultivar}"			
-qdir="q${Key1_Phred_quality_score_for_bulked}p${Key1_Percentage_of_above_score_for_bulked}"			
+#qdir_my_cultivar="q${Key1_Phred_quality_score_for_my_cultivar}p${Key1_Percentage_of_above_score_for_my_cultivar}"			
+#qdir="q${Key1_Phred_quality_score_for_bulked}p${Key1_Percentage_of_above_score_for_bulked}"			
 			
 MKDIR="mkdir -p"			
-			
-			
+						
 if [ ! -e "${bulk_name_ida}" ] ; then			
 	CMD="mv 1.qualify_read/mybulk_A ${bulk_name_ida}"		
 	echo ${CMD}		
@@ -34,21 +33,18 @@ if [ ! -e "${bulk_name_idb}" ] ; then
 	echo ${CMD}		
 	eval ${CMD}		
 fi			
+
+#Creation of secondary reference moved to "Determine if secondary reference is being created" 			
+
+#Don't need the following direcories now
+#echo "${MKDIR} ${bulk_name_ida}/${qdir}/sep_pair"			
+#eval "${MKDIR} ${bulk_name_ida}/${qdir}/sep_pair"			
 			
-if [ ! -e "${my_cultivar_name}" ] ; then			
-	CMD="mv 1.qualify_read/anyname ${my_cultivar_name}"		
-	echo ${CMD}		
-	eval ${CMD}		
-fi			
+#echo "${MKDIR} ${bulk_name_idb}/${qdir}/sep_pair"			
+#eval "${MKDIR} ${bulk_name_idb}/${qdir}/sep_pair"			
 			
-echo "${MKDIR} ${bulk_name_ida}/${qdir}/sep_pair"			
-eval "${MKDIR} ${bulk_name_ida}/${qdir}/sep_pair"			
-			
-echo "${MKDIR} ${bulk_name_idb}/${qdir}/sep_pair"			
-eval "${MKDIR} ${bulk_name_idb}/${qdir}/sep_pair"			
-			
-echo "${MKDIR} ${my_cultivar_name}/${qdir_my_cultivar}/sep_pair"			
-eval "${MKDIR} ${my_cultivar_name}/${qdir_my_cultivar}/sep_pair"			
+#echo "${MKDIR} ${my_cultivar_name}/${qdir_my_cultivar}/sep_pair"			
+#eval "${MKDIR} ${my_cultivar_name}/${qdir_my_cultivar}/sep_pair"			
 			
 # ==================================================			
 # convert some variables 			
@@ -60,18 +56,18 @@ relativepath_to_absolutepath(){
 	if [ $1 = "." ] ; then		
 		abspath=`pwd`	
 	else		
-		abspath=$(cd $(dirname "$1") && pwd)/$(basename "$1")	
+		abspath=$(\cd $(dirname "$1") && pwd)/$(basename "$1")	
 	fi		
 	echo ${abspath}		
 }			
 			
 # --------------------------------------------------			
-abspath=`relativepath_to_absolutepath ${Key0_TopPath_Scripts}`			
-Key0_TopPath_Scripts="${abspath}"			
+#abspath=`relativepath_to_absolutepath ${Key0_TopPath_Scripts}`			
+#Key0_TopPath_Scripts="${abspath}"			
 			
 # --------------------------------------------------			
-abspath=`relativepath_to_absolutepath ${Key0_TopPath_Coval}`			
-Key0_TopPath_Coval="${abspath}"			
+#abspath=`relativepath_to_absolutepath ${Key0_TopPath_Coval}`			
+#Key0_TopPath_Coval="${abspath}"			
 			
 # --------------------------------------------------			
 abspath=`relativepath_to_absolutepath ${Key0_TopPath_Work}`			
@@ -79,39 +75,66 @@ Key0_TopPath_Work="${abspath}"
 			
 # --------------------------------------------------			
 abspath=`relativepath_to_absolutepath ${Key2_Path_public_reference_FASTA}`			
-Key2_Path_public_reference_FASTA="${abspath}"			
-			
+Key2_Path_public_reference_FASTA="${abspath}"
+
+# --------------------------------------------------
+# Path to trimmomatic: created March 2019 LY
+# --------------------------------------------------
+abspath=`relativepath_to_absolutepath ${Key1_Path_to_trimmomatic}`
+Key1_Path_to_trimmomatic="${abspath}"
+
 # --------------------------------------------------			
-# 			
+# Determine if secondary reference is being created: LY
 # --------------------------------------------------			
-			
-			
-if [ ${Key2_Coval_realign_for_my_cultivar} = "yes" ] ; then			
-	Key2_Coval_realign_for_my_cultivar=""		
+if [[ ${Key0_Make_secondary_reference} = "yes/no" ]] ; then
+	echo "Change Key0_Make_secondary_reference in ./config.txt to yes or no"
+	exit 1
 else			
-	Key2_Coval_realign_for_my_cultivar="--disalign"		
-fi			
+	if [[ ${Key0_Make_secondary_reference} = "yes" ]]; then
+		if [[ ${my_cultivar_name} = "INSERT-secondary-ref-name-OR-leave-empty" ]]; then
+			echo "Change Key1_My_cultivar_sample_name to secondary reference name"
+			exit 2
+		else
+			if [[ ${my_cultivar_name} = "" ]]; then
+				echo "Insert value for Key1_My_cultivar_sample_name in config.txt"
+				exit 3
+			else		# create diectory to put secondary reference
+			CMD="MKDIR 1.qualify_read/secondary_readfiles"
+			echo ${CMD}
+			eval ${CMD}
+			fi
+		fi
+	fi
+fi
+
+#Don't need the following as not using now			
+#if [ ${Key2_Coval_realign_for_my_cultivar} = "yes" ] ; then			
+#	Key2_Coval_realign_for_my_cultivar=""		
+#else			
+#	Key2_Coval_realign_for_my_cultivar="--disalign"		
+#fi			
 			
 # --------------------------------------------------			
-if [ ${Key3_Coval_realign_for_bulked} = "yes" ] ; then			
-	Key3_Coval_realign_for_bulked=""		
-else			
-	Key3_Coval_realign_for_bulked="--disalign"		
-fi			
+#if [ ${Key3_Coval_realign_for_bulked} = "yes" ] ; then			
+#	Key3_Coval_realign_for_bulked=""		
+#else			
+#	Key3_Coval_realign_for_bulked="--disalign"		
+#fi			
+
+#remove following as trimmomatic automatically determines Phred system used and we are assuming Illumina reads: LY			
+# --------------------------------------------------			
+#if [ ${Key1_Score_type_for_bulked} = "sanger" ] ; then			
+#	QOPT_for_bulked="-Q 33"		
+#else			
+#	QOPT_for_bulked=""		
+#fi			
 			
 # --------------------------------------------------			
-if [ ${Key1_Score_type_for_bulked} = "sanger" ] ; then			
-	QOPT_for_bulked="-Q 33"		
-else			
-	QOPT_for_bulked=""		
-fi			
-			
-# --------------------------------------------------			
-if [ ${Key1_Score_type_for_my_cultivar} = "sanger" ] ; then			
-	QOPT_for_my_cultivar="-Q 33"		
-else			
-	QOPT_for_my_cultivar=""		
-fi			
+#if [ ${Key1_Score_type_for_my_cultivar} = "sanger" ] ; then			
+#	QOPT_for_my_cultivar="-Q 33"		
+#else			
+#	QOPT_for_my_cultivar=""		
+#fi			
 			
 # --------------------------------------------------			
 if [ ${Key3_Mode_reference_FASTA} -eq 0 ] ; then			
@@ -179,6 +202,10 @@ Set_TOPPATH_COVAL(){
 # ##################################################			
 # for 1.qualify_read			
 # ##################################################			
+Set_TRIMMOMATIC(){			
+	TRIMMOMATIC="${Key1_Path_to_trimmomatic}"		
+	echo "\${TRIMMOMATIC}"		
+}
 # ==================================================			
 # Bat_fastq_quality_filter.sh			
 # ==================================================			
@@ -203,6 +230,11 @@ Set_READ_QOPT(){
 Set_READ_QVAL_MY_CULTIVAR(){			
 	READ_QVAL=${Key1_Phred_quality_score_for_my_cultivar}		
 	echo "\${READ_QVAL}"		
+}
+
+Set_MIN_LEN_MY_CULTIVAR_READS(){
+	MIN_LEN_MY_CULTIVAR_READS=${Key1_Min_length_my_cultivar_reads}
+	echo "\${MIN_LEN_MY_CULTIVAR_READS}"
 }			
 			
 Set_READ_PVAL_MY_CULTIVAR(){			
@@ -246,7 +278,7 @@ Set_PUBLIC_REF_FASTA(){
 # Bat_run_coval-refine-bam.pl.sh			
 # ==================================================			
 Set_MIS_MATCH_FOR_MAKE_CONSENSUS(){			
-	MIS_MATCH=${Key2_Maximum_number_mismatch_default_for_my_cultivar}		
+	MIS_MATCH="${Key2_Maximum_number_mismatch_default_for_my_cultivar}"		
 	echo "\${MIS_MATCH}"		
 }			
 			

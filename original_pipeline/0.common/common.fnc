@@ -2,20 +2,22 @@
 # global environment			
 # ##################################################			
 Set_TOPPATH_SCRIPTS(){			
-	TOPPATH_SCRIPTS=""		
+	TOPPATH_SCRIPTS="./ibrc_scripts"		
 	echo "${TOPPATH_SCRIPTS}"		
 }			
 			
-Set_
-
 Set_TOPPATH_COVAL(){			
-	TOPPATH_COVAL=""		
+	TOPPATH_COVAL="./execute_Coval/Coval-1.4"		
 	echo "${TOPPATH_COVAL}"		
 }			
 			
 # ##################################################			
 # for 1.qualify_read			
 # ##################################################			
+Set_TRIMMOMATIC(){			
+	TRIMMOMATIC="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/ibrc_scripts/1./trimmomatic-0.38.jar"		
+	echo "${TRIMMOMATIC}"		
+}
 # ==================================================			
 # Bat_fastq_quality_filter.sh			
 # ==================================================			
@@ -25,12 +27,12 @@ Set_READ_QVAL(){
 }			
 			
 Set_READ_PVAL(){			
-	READ_PVAL=90		
+	READ_PVAL=		
 	echo "${READ_PVAL}"		
 }			
 			
 Set_READ_QOPT(){			
-	READ_QOPT="-Q 33"		
+	READ_QOPT=""		
 	echo "${READ_QOPT}"		
 			
 	# READ_QOPT="-Q 33"	in case of CASAVA 1.8 later	
@@ -40,15 +42,20 @@ Set_READ_QOPT(){
 Set_READ_QVAL_MY_CULTIVAR(){			
 	READ_QVAL=30		
 	echo "${READ_QVAL}"		
+}
+
+Set_MIN_LEN_MY_CULTIVAR_READS(){
+	MIN_LEN_MY_CULTIVAR_READS=90
+	echo "${MIN_LEN_MY_CULTIVAR_READS}"
 }			
 			
 Set_READ_PVAL_MY_CULTIVAR(){			
-	READ_PVAL=90		
+	READ_PVAL=		
 	echo "${READ_PVAL}"		
 }			
 			
 Set_READ_QOPT_MY_CULTIVAR(){			
-	READ_QOPT="-Q 33"		
+	READ_QOPT=""		
 	echo "${READ_QOPT}"		
 			
 	# READ_QOPT="-Q 33"		in case of CASAVA 1.8 later
@@ -62,12 +69,12 @@ Set_READ_QOPT_MY_CULTIVAR(){
 # Bat_make_symbolic_link_of_qualified_fastq.sh.sh			
 # ==================================================			
 Set_SRC_READ_PATH_MY_CULTIVAR(){			
-	SRC_READ_PATH_MY_CULTIVAR="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/1.qualify_read/anyname/q30p90/sep_pair"		
+	SRC_READ_PATH_MY_CULTIVAR="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/1.qualify_read/Adelie/q30p/sep_pair"		
 	echo "${SRC_READ_PATH_MY_CULTIVAR}"		
 }			
 			
 Set_MY_CULTIVAR_NAME(){			
-	MY_CULTIVAR_NAME="anyname"		
+	MY_CULTIVAR_NAME="Adelie"		
 	echo "${MY_CULTIVAR_NAME}"		
 }			
 			
@@ -75,7 +82,7 @@ Set_MY_CULTIVAR_NAME(){
 # Bat_bwa2bam.sh			
 # ==================================================			
 Set_PUBLIC_REF_FASTA(){			
-	REF_FASTA="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/downloaded_fasta/IRGSP-1.0_genome.fasta/IRGSP-1.0_genome.fasta"		
+	REF_FASTA="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/downloaded_fasta/INSERT_ref_seq_fasta_filename_here"		
 	echo "${REF_FASTA}"		
 }			
 			
@@ -83,12 +90,12 @@ Set_PUBLIC_REF_FASTA(){
 # Bat_run_coval-refine-bam.pl.sh			
 # ==================================================			
 Set_MIS_MATCH_FOR_MAKE_CONSENSUS(){			
-	MIS_MATCH=10		
+	MIS_MATCH="10"		
 	echo "${MIS_MATCH}"		
 }			
 			
 Set_DONTREALIGN_FOR_MAKE_CONSENSUS(){			
-	DONTREALIGN=""		
+	DONTREALIGN="yes"		
 	echo "${DONTREALIGN}"		
 			
 	# DONTREALIGN=""		
@@ -136,7 +143,7 @@ Set_COVAL_CALL_MINQUALAVE_FOR_MAKE_CONSENSUS()
 			
 Set_COVAL_CALL_CALLTYPE_FOR_MAKE_CONSENSUS()			
 {			
-	COVALCALL_CALLTYPE="sanger"		
+	COVALCALL_CALLTYPE=""		
 	echo "${COVALCALL_CALLTYPE}"		
 			
 	# COVALCALL_CALLTYPE="sanger"		
@@ -163,7 +170,7 @@ Set_BULK_NAME_IDB(){
 			
 Set_REF_FASTA()			
 {			
-	REF_FASTA="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/2.make_consensus/90.align_to_this_fasta/00.reference/anyname_q30p90_MSR_Cov_10_S-snp_RYKMSWBDHV2ACGT.fa"		
+	REF_FASTA="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/2.make_consensus/90.align_to_this_fasta/00.reference/Adelie__MSR_Cov_10_S-snp_RYKMSWBDHV2ACGT.fa"		
 	echo "${REF_FASTA}"		
 }			
 			
@@ -171,7 +178,7 @@ Set_REF_FASTA()
 # for Bat_make_symbolic_link_of_qualified_fastq.sh			
 # --------------------------------------------------			
 Set_SRC_READ_PATH(){			
-	SRC_READ_PATH="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/1.qualify_read/equalized"		
+	SRC_READ_PATH="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/1.qualify_read/equalized"		
 			
 	echo "${SRC_READ_PATH}"		
 }			
@@ -190,7 +197,7 @@ Set_BWA_CPU()
 # --------------------------------------------------			
 Set_DONTREALIGN()			
 {			
-	DONTREALIGN=""		
+	DONTREALIGN="yes"		
 	echo "${DONTREALIGN}"		
 			
 	# DONTREALIGN=""		
@@ -244,7 +251,7 @@ Set_COVAL_CALL_MINQUALAVE()
 			
 Set_COVAL_CALL_CALLTYPE()			
 {			
-	COVALCALL_CALLTYPE="sanger"		
+	COVALCALL_CALLTYPE=""		
 	echo "${COVALCALL_CALLTYPE}"		
 			
 	# COVALCALL_CALLTYPE="sanger"		
@@ -262,13 +269,13 @@ Set_MISs()
 			
 Set_PILEUPDB_PATH()			
 {			
-	PILEUPDB_PATH="/Volumes/lwy304/Flax/QTL-Seq update/original_pipeline/2.make_consensus/90.align_to_this_fasta/30.coval_call"		
+	PILEUPDB_PATH="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/2.make_consensus/90.align_to_this_fasta/30.coval_call"		
 	echo "${PILEUPDB_PATH}"		
 }			
 			
 Set_PILEUPDB_NAME()			
 {			
-	PILEUPDB_NAME="anyname_q30p90"		
+	PILEUPDB_NAME="Adelie_"		
 	echo "${PILEUPDB_NAME}"		
 }			
 			
