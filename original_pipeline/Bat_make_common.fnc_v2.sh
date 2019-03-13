@@ -77,6 +77,11 @@ Key0_TopPath_Work="${abspath}"
 abspath=`relativepath_to_absolutepath ${Key2_Path_public_reference_FASTA}`			
 Key2_Path_public_reference_FASTA="${abspath}"
 
+# --------------------------------------------------
+# Path to trimmomatic
+# --------------------------------------------------
+Key1_Path_to_trimmomatic="${Key1_Path_to_trimmomatic}"
+
 # --------------------------------------------------			
 # Determine if secondary reference is being created
 # --------------------------------------------------			
@@ -195,6 +200,10 @@ Set_TOPPATH_COVAL(){
 # ##################################################			
 # for 1.qualify_read			
 # ##################################################			
+Set_TRIMMOMATIC(){			
+	TRIMMOMATIC="${Key1_Path_to_trimmomatic}"		
+	echo "\${TRIMMOMATIC}"		
+}
 # ==================================================			
 # Bat_fastq_quality_filter.sh			
 # ==================================================			

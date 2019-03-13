@@ -21,6 +21,8 @@ Key1_My_cultivar_sample_name="Adelie"
 # ##################################################				
 # Qualify read				
 # ##################################################				
+Key1_Path_to_trimmomatic="~/Unix/Trimmomatic/trimmomatic-0.38.jar"
+								# Need to insert path to trimmomatic 
 Key1_Phred_quality_score_for_bulked=30				
 Key1_Percentage_of_above_score_for_bulked=90				
 Key1_Score_type_for_bulked="illumina"                 		# "illumina" or "sanger" #assuming illumina reads as of 2019: LY

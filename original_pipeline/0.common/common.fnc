@@ -14,6 +14,10 @@ Set_TOPPATH_COVAL(){
 # ##################################################			
 # for 1.qualify_read			
 # ##################################################			
+Set_TRIMMOMATIC(){			
+	TRIMMOMATIC="~/Unix/Trimmomatic/trimmomatic-0.38.jar"		
+	echo "${TRIMMOMATIC}"		
+}
 # ==================================================			
 # Bat_fastq_quality_filter.sh			
 # ==================================================			
@@ -161,7 +165,7 @@ Set_BULK_NAME_IDB(){
 			
 Set_REF_FASTA()			
 {			
-	REF_FASTA="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/2.make_consensus/90.align_to_this_fasta/00.reference/Adelie_q30p90_MSR_Cov_10_S-snp_RYKMSWBDHV2ACGT.fa"		
+	REF_FASTA="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/2.make_consensus/90.align_to_this_fasta/00.reference/Adelie__MSR_Cov_10_S-snp_RYKMSWBDHV2ACGT.fa"		
 	echo "${REF_FASTA}"		
 }			
 			
@@ -266,7 +270,7 @@ Set_PILEUPDB_PATH()
 			
 Set_PILEUPDB_NAME()			
 {			
-	PILEUPDB_NAME="Adelie_q30p90"		
+	PILEUPDB_NAME="Adelie_"		
 	echo "${PILEUPDB_NAME}"		
 }			
 			

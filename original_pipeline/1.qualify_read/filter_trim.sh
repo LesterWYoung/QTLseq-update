@@ -18,6 +18,9 @@ eval ${CMD}
 Set_READ_QVAL_MY_CULTIVAR	# READ_QVAL_MY_CULTIVAR=${Key1_Phred_quality_score_for_my_cultivar} in config.txt
 #echo ${READ_QVAL_MY_CULTIVAR}
 
+Set_TRIMMOMATIC			# TRIMMOMATIC=${Key1_Path_to_trimmomatic}
+echo ${TRIMMOMATIC}
+
 numfiles=`wc -l < readfilelist`
 
 if [ $numfiles -eq 0 ]      	# if no readfiles are present
@@ -68,7 +71,7 @@ while read -r readfile
 
 done < readfilelist
 
-CMD="java -jar trimmomatic-0.38.jar PE"
+CMD="${TRIMMOMATIC} PE"
 CMD="$CMD $readfileR1 $readfileR2"			#fwd and rev readfiles to be trimmed
 CMD="$CMD $outfileR1paired $outfileR1unpaired"		#fwd output reads (paired with rev reads and unpaired)
 CMD="$CMD $outfileR2paired $outfileR2unpaired"		#rev output reads (paired with fwd reads and unpaired)
