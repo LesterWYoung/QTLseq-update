@@ -6,20 +6,22 @@
 
 source ../0.common/common.fnc	#load common variables, including Key1_My_cultivar_sample_name
 				# and $Key1_Phred_quality_score_for_my_cultivar (default=30)
+
+echo "-Name of parental cultivar used for secondary reference:"
 Set_MY_CULTIVAR_NAME		# MY_CUTIVAR_NAME=${Key1_My_cultivar_sample_name} in config.txt 
 
 CMD="find ../parental_readfiles/${MY_CULTIVAR_NAME}_R[12].fastq.gz > readfilelist"
-#echo ${CMD}
 eval ${CMD}
+echo "-Parental readfiles being used to generate secondary reference"; cat readfilelist
 
-#Set_SRC_READ_PATH_MY_CULTIVAR	# SRC_READ_PATH_MY_CULTIVAR=${Key1_Phred_quality_score_for_my_cultivar} in config.txt
-#echo ${SRC_READ_PATH_MY_CULTIVAR}
+echo "-Path to trimmomatic:"
+Set_TRIMMOMATIC			# TRIMMOMATIC=${Key1_Path_to_trimmomatic}. Probably .ibrc_scripts/1./trimmomatic
 
+echo "-Min Phred value for ${MY_CUTLIVAR_NAME} reads:"
 Set_READ_QVAL_MY_CULTIVAR	# READ_QVAL_MY_CULTIVAR=${Key1_Phred_quality_score_for_my_cultivar} in config.txt
-#echo ${READ_QVAL_MY_CULTIVAR}
 
-Set_TRIMMOMATIC			# TRIMMOMATIC=${Key1_Path_to_trimmomatic}
-echo ${TRIMMOMATIC}
+echo "-Min length of ${MY_CULTIVAR_NAME} reads after trimming:"
+Set_MIN_LEN_MY_CULTIVAR_READS	# MIN_LEN_MY_CULTIVAR_READS=90 set in config.txt and used by trimmomatic
 
 numfiles=`wc -l < readfilelist`
 
@@ -38,16 +40,10 @@ if [ $numfiles -eq 1 ]; then	#if there is only one readfile present, also exit
 	exit 3
 fi
 
-cat readfilelist
-
 while read -r readfile
 	do
-	readfilename=`cut -f 3 -d "/" <<< $readfile`	#gets file name, removing path
+	readfilename=`basename $readfile`		#gets file name, removing path
 							# echo "filename being used = $readfilename"
-							#can maybe change this to $Key1_My_cultivar_sample_name
-
-	parentname=`cut -f 1 -d "_" <<< $readfilename | cut -f 2 -d "/"`	#gets name of cultivar
-							# echo "parentname being used = $parentname"
 
         read_direction=`cut -f 2 -d "_" <<< $readfilename | cut -f 1 -d "."`
         						#searches for "-R[12]." to get read direction
@@ -56,30 +52,30 @@ while read -r readfile
 	if [[ $read_direction == "R1" ]]; then		#if foward readfile, then assign forward variable names
         						#echo "found R1"
 		readfileR1=$readfile
-		outfileR1paired="secondary_readfiles/$parentname-paired_R1.fastq.gz"
-		outfileR1unpaired="secondary_readfiles/$parentname-unpaired_R1.fastq.gz"
-							#echo "$readfileR1  $outfileR1paired   $outfileR1unpaired"
+		outfileR1paired="secondary_readfiles/${MY_CULTIVAR_NAME}-paired_R1.fastq.gz"
+		outfileR1unpaired="secondary_readfiles/${MY_CULTIVAR_NAME}-unpaired_R1.fastq.gz"
+							# echo "$readfileR1  $outfileR1paired   $outfileR1unpaired"
 
 	else
         						#echo "found R2"
 		readfileR2=$readfile
-		outfileR2paired="secondary_readfiles/$parentname-paired_R2.fastq.gz"
-		outfileR2unpaired="secondary_readfiles/$parentname-unpaired_R2.fastq.gz"
+		outfileR2paired="secondary_readfiles/${MY_CULTIVAR_NAME}-paired_R2.fastq.gz"
+		outfileR2unpaired="secondary_readfiles/${MY_CULTIVAR_NAME}-unpaired_R2.fastq.gz"
 							# echo "$readfileR2  $outfileR2paired   $outfileR2unpaired"
 
 	fi
 
 done < readfilelist
 
-CMD="${TRIMMOMATIC} PE"
+CMD="java -jar ${TRIMMOMATIC} PE"
 CMD="$CMD $readfileR1 $readfileR2"			#fwd and rev readfiles to be trimmed
 CMD="$CMD $outfileR1paired $outfileR1unpaired"		#fwd output reads (paired with rev reads and unpaired)
 CMD="$CMD $outfileR2paired $outfileR2unpaired"		#rev output reads (paired with fwd reads and unpaired)
-CMD="$CMD LEADING:15 TRAILING:15"			#trims bases from each end if qual<15. Change if desired
+CMD="$CMD LEADING:4 TRAILING:4"			#trims bases from each end if qual<15. Change if desired
 CMD="$CMD SLIDINGWINDOW:4:${READ_QVAL}"			# cut if average quality score for sliding window < set value
-CMD="$CMD MINLEN:110"					#filter out reads < 110 bp after trimming
-CMD="$CMD AVGQUAL:${READ_QVAL}"				#remove read if averagequality is less than set value
+CMD="$CMD MINLEN:${MIN_LEN_MY_CULTIVAR_READS}"		#filter out reads < set value after trimming
+CMD="$CMD AVGQUAL:${READ_QVAL}"				#remove read if average quality is less than set value
 
-echo ${CMD}
+#echo ${CMD}
 eval ${CMD}
 
