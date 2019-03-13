@@ -5,7 +5,7 @@ Key0_TopPath_Scripts="./ibrc_scripts" 				# it can be described as either relati
 Key0_TopPath_Coval="./execute_Coval/Coval-1.4"    		# it can be described as either relative path name style or absolute path name style.
 				
 Key0_TopPath_Work="."						# usually set "." because "." means current framework
-Key0_Make_secondary_reference="yes"			#delete one or the other. Leave "yes" to create a secondary ref, otherwise leave "no": LY
+Key0_Make_secondary_reference="yes/no"			#delete one or the other. Leave "yes" to create a secondary ref, otherwise leave "no": LY
 							# if "yes" then give sample name in Key1_My_cultivar_sample_name, otherwise leave blank: LY
 				
 # ##################################################				
@@ -14,7 +14,7 @@ Key0_Make_secondary_reference="yes"			#delete one or the other. Leave "yes" to c
 Key1_Bulked_sample_name="mybulk"				
 Key1_Bulked_sample_Type_A="A"				
 Key1_Bulked_sample_Type_B="B"				
-Key1_My_cultivar_sample_name="Adelie"	
+Key1_My_cultivar_sample_name="INSERT-secondary-ref-name-OR-leave-empty"	
 								#name of secondary reference. Leave as "" if secondary 
 								#ref is not being generated: LY
 				

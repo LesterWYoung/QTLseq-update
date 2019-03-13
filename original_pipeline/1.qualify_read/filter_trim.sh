@@ -8,15 +8,15 @@ source ../0.common/common.fnc	#load common variables, including Key1_My_cultivar
 				# and $Key1_Phred_quality_score_for_my_cultivar (default=30)
 Set_MY_CULTIVAR_NAME		# MY_CUTIVAR_NAME=${Key1_My_cultivar_sample_name} in config.txt 
 
-CMD="find ../parental_readfiles/${MY_CULTIVAR_NAME}.fastq.gz > readfilelist"
-echo ${CMD}
+CMD="find ../parental_readfiles/${MY_CULTIVAR_NAME}_R[12].fastq.gz > readfilelist"
+#echo ${CMD}
 eval ${CMD}
 
 #Set_SRC_READ_PATH_MY_CULTIVAR	# SRC_READ_PATH_MY_CULTIVAR=${Key1_Phred_quality_score_for_my_cultivar} in config.txt
 #echo ${SRC_READ_PATH_MY_CULTIVAR}
 
 Set_READ_QVAL_MY_CULTIVAR	# READ_QVAL_MY_CULTIVAR=${Key1_Phred_quality_score_for_my_cultivar} in config.txt
-echo ${READ_QVAL_MY_CULTIVAR}
+#echo ${READ_QVAL_MY_CULTIVAR}
 
 numfiles=`wc -l < readfilelist`
 
@@ -61,7 +61,7 @@ while read -r readfile
         						#echo "found R2"
 		readfileR2=$readfile
 		outfileR2paired="secondary_readfiles/$parentname-paired_R2.fastq.gz"
-		outfileR2unpaired="secondary_readfiles$parentname-unpaired_R2.fastq.gz"
+		outfileR2unpaired="secondary_readfiles/$parentname-unpaired_R2.fastq.gz"
 							# echo "$readfileR2  $outfileR2paired   $outfileR2unpaired"
 
 	fi
@@ -73,10 +73,10 @@ CMD="$CMD $readfileR1 $readfileR2"			#fwd and rev readfiles to be trimmed
 CMD="$CMD $outfileR1paired $outfileR1unpaired"		#fwd output reads (paired with rev reads and unpaired)
 CMD="$CMD $outfileR2paired $outfileR2unpaired"		#rev output reads (paired with fwd reads and unpaired)
 CMD="$CMD LEADING:15 TRAILING:15"			#trims bases from each end if qual<15. Change if desired
-CMD="$CMD SLIDINGWINDOW:4:${READ_QVAL_MY_CULTIVAR}"	# cut if average quality score for sliding window < set value
+CMD="$CMD SLIDINGWINDOW:4:${READ_QVAL}"			# cut if average quality score for sliding window < set value
 CMD="$CMD MINLEN:110"					#filter out reads < 110 bp after trimming
-CMD="$CMD AVGQUAL:${READ__QVAL_MY_CULTIVAR}"					#remove read if averagequality is less than set value
+CMD="$CMD AVGQUAL:${READ_QVAL}"				#remove read if averagequality is less than set value
 
 echo ${CMD}
-#eval ${CMD}
+eval ${CMD}
 

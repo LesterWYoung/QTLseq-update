@@ -17,8 +17,8 @@ fi
 my_cultivar_name="1.qualify_read/${Key1_My_cultivar_sample_name}"			
 bulk_name_ida="1.qualify_read/${Key1_Bulked_sample_name}_${Key1_Bulked_sample_Type_A}"			
 bulk_name_idb="1.qualify_read/${Key1_Bulked_sample_name}_${Key1_Bulked_sample_Type_B}"			
-qdir_my_cultivar="q${Key1_Phred_quality_score_for_my_cultivar}p${Key1_Percentage_of_above_score_for_my_cultivar}"			
-qdir="q${Key1_Phred_quality_score_for_bulked}p${Key1_Percentage_of_above_score_for_bulked}"			
+#qdir_my_cultivar="q${Key1_Phred_quality_score_for_my_cultivar}p${Key1_Percentage_of_above_score_for_my_cultivar}"			
+#qdir="q${Key1_Phred_quality_score_for_bulked}p${Key1_Percentage_of_above_score_for_bulked}"			
 			
 MKDIR="mkdir -p"			
 						
@@ -92,9 +92,9 @@ else
 			if [[ ${my_cultivar_name} = "" ]]; then
 				echo "Insert value for Key1_My_cultivar_sample_name in config.txt"
 				exit 3
-			else
-			CMD="mv 1.qualify_read/${my_cultivar_name}"		
-			echo ${CMD}		
+			else		# create diectory to put secondary reference
+			CMD="MKDIR 1.qualify_read/secondary_readfiles"
+			echo ${CMD}
 			eval ${CMD}
 			fi
 		fi
@@ -187,8 +187,6 @@ Set_TOPPATH_SCRIPTS(){
 	echo "\${TOPPATH_SCRIPTS}"		
 }			
 			
-Set_
-
 Set_TOPPATH_COVAL(){			
 	TOPPATH_COVAL="${Key0_TopPath_Coval}"		
 	echo "\${TOPPATH_COVAL}"		
