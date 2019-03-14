@@ -11,7 +11,7 @@ else
 fi			
 			
 # ==================================================			
-# noname directory -> your samples			
+# change generic directory names to user configured names			
 # ==================================================			
 			
 my_cultivar_name="1.qualify_read/${Key1_My_cultivar_sample_name}"			
@@ -23,13 +23,13 @@ bulk_name_idb="1.qualify_read/${Key1_Bulked_sample_name}_${Key1_Bulked_sample_Ty
 MKDIR="mkdir -p"			
 						
 if [ ! -e "${bulk_name_ida}" ] ; then			
-	CMD="mv 1.qualify_read/mybulk_A ${bulk_name_ida}"		
+	CMD="MKDIR ${bulk_name_ida}"		
 	echo ${CMD}		
 	eval ${CMD}		
 fi			
 			
 if [ ! -e "${bulk_name_idb}" ] ; then			
-	CMD="mv 1.qualify_read/mybulk_B ${bulk_name_idb}"		
+	CMD="MKDIR ${bulk_name_idb}"		
 	echo ${CMD}		
 	eval ${CMD}		
 fi			
@@ -62,8 +62,8 @@ relativepath_to_absolutepath(){
 }			
 			
 # --------------------------------------------------			
-#abspath=`relativepath_to_absolutepath ${Key0_TopPath_Scripts}`			
-#Key0_TopPath_Scripts="${abspath}"			
+abspath=`relativepath_to_absolutepath ${Key0_TopPath_Scripts}`			
+Key0_TopPath_Scripts="${abspath}"			
 			
 # --------------------------------------------------			
 #abspath=`relativepath_to_absolutepath ${Key0_TopPath_Coval}`			
@@ -198,9 +198,15 @@ Set_TOPPATH_COVAL(){
 	TOPPATH_COVAL="${Key0_TopPath_Coval}"		
 	echo "\${TOPPATH_COVAL}"		
 }			
+
+Set_MAKE_SECONDARY_REF(){
+	MAKE_SECONDARY_REF="${Key0_Make_secondary_reference}"
+	echo "\${MAKE_SECONDARY_REF}"
+}
 			
 # ##################################################			
-# for 1.qualify_read			
+# for 1.qualify_read
+# now using trimmomatic instead 13 mar 2019			
 # ##################################################			
 Set_TRIMMOMATIC(){			
 	TRIMMOMATIC="${Key1_Path_to_trimmomatic}"		
@@ -213,42 +219,50 @@ Set_READ_QVAL(){
 	READ_QVAL=${Key1_Phred_quality_score_for_bulked}		
 	echo "\${READ_QVAL}"		
 }			
-			
-Set_READ_PVAL(){			
-	READ_PVAL=${Key1_Percentage_of_above_score_for_bulked}		
-	echo "\${READ_PVAL}"		
+
+# Function to setting $MIN_LEN_BULKED_READS. Trimmomatic will remove reads shorter that this number (and it's mate): LY
+Set_MIN_LEN_BULKED_READS(){
+	MIN_LEN_BULKED_READS=${Key1_Min_length_bulked_reads}
+	echo "\${MIN_LEN_BULKED_READS}"
 }			
-			
-Set_READ_QOPT(){			
-	READ_QOPT="${QOPT_for_bulked}"		
-	echo "\${READ_QOPT}"		
-			
-	# READ_QOPT="-Q 33"	in case of CASAVA 1.8 later	
-	# READ_QOPT=""		in case of the previous Illumina-specific offset value of 64
-}			
+
+#Don't need the following functions now: LY			
+#Set_READ_PVAL(){			
+#	READ_PVAL=${Key1_Percentage_of_above_score_for_bulked}		
+#	echo "\${READ_PVAL}"		
+#}			
+#			
+#Set_READ_QOPT(){			
+#	READ_QOPT="${QOPT_for_bulked}"		
+#	echo "\${READ_QOPT}"		
+#			
+#	# READ_QOPT="-Q 33"	in case of CASAVA 1.8 later	
+#	# READ_QOPT=""		in case of the previous Illumina-specific offset value of 64
+#}			
 #--                              #2014/04/08 kikuchi			
 Set_READ_QVAL_MY_CULTIVAR(){			
 	READ_QVAL=${Key1_Phred_quality_score_for_my_cultivar}		
 	echo "\${READ_QVAL}"		
 }
 
+# Function to setting $MIN_LUN_MY_CULTIVAR_READS. Trimmomatic will remove reads shorter that this number (and it's mate)
 Set_MIN_LEN_MY_CULTIVAR_READS(){
 	MIN_LEN_MY_CULTIVAR_READS=${Key1_Min_length_my_cultivar_reads}
 	echo "\${MIN_LEN_MY_CULTIVAR_READS}"
 }			
-			
-Set_READ_PVAL_MY_CULTIVAR(){			
-	READ_PVAL=${Key1_Percentage_of_above_score_for_my_cultivar}		
-	echo "\${READ_PVAL}"		
-}			
-			
-Set_READ_QOPT_MY_CULTIVAR(){			
-	READ_QOPT="${QOPT_for_my_cultivar}"		
-	echo "\${READ_QOPT}"		
-			
-	# READ_QOPT="-Q 33"		in case of CASAVA 1.8 later
-	# READ_QOPT=""		in case of the previous Illumina-specific offset value of 64
-}			
+#Don't need the following functions now: LY			
+#Set_READ_PVAL_MY_CULTIVAR(){			
+#	READ_PVAL=${Key1_Percentage_of_above_score_for_my_cultivar}		
+#	echo "\${READ_PVAL}"		
+#}			
+#			
+#Set_READ_QOPT_MY_CULTIVAR(){			
+#	READ_QOPT="${QOPT_for_my_cultivar}"		
+#	echo "\${READ_QOPT}"		
+#			
+#	# READ_QOPT="-Q 33"		in case of CASAVA 1.8 later
+#	# READ_QOPT=""		in case of the previous Illumina-specific offset value of 64
+#}			
 			
 # ##################################################			
 # for 2.make_consensus 			

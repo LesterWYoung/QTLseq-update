@@ -2,17 +2,23 @@
 # global environment			
 # ##################################################			
 Set_TOPPATH_SCRIPTS(){			
-	TOPPATH_SCRIPTS="./ibrc_scripts"		
+	TOPPATH_SCRIPTS="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/ibrc_scripts"		
 	echo "${TOPPATH_SCRIPTS}"		
 }			
 			
 Set_TOPPATH_COVAL(){			
-	TOPPATH_COVAL="./execute_Coval/Coval-1.4"		
+	TOPPATH_COVAL=""		
 	echo "${TOPPATH_COVAL}"		
 }			
+
+Set_MAKE_SECONDARY_REF(){
+	MAKE_SECONDARY_REF="yes"
+	echo "${MAKE_SECONDARY_REF}"
+}
 			
 # ##################################################			
-# for 1.qualify_read			
+# for 1.qualify_read
+# now using trimmomatic instead 13 mar 2019			
 # ##################################################			
 Set_TRIMMOMATIC(){			
 	TRIMMOMATIC="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/ibrc_scripts/1./trimmomatic-0.38.jar"		
@@ -25,42 +31,50 @@ Set_READ_QVAL(){
 	READ_QVAL=30		
 	echo "${READ_QVAL}"		
 }			
-			
-Set_READ_PVAL(){			
-	READ_PVAL=		
-	echo "${READ_PVAL}"		
+
+# Function to setting . Trimmomatic will remove reads shorter that this number (and it's mate): LY
+Set_MIN_LEN_BULKED_READS(){
+	MIN_LEN_BULKED_READS=90
+	echo "${MIN_LEN_BULKED_READS}"
 }			
-			
-Set_READ_QOPT(){			
-	READ_QOPT=""		
-	echo "${READ_QOPT}"		
-			
-	# READ_QOPT="-Q 33"	in case of CASAVA 1.8 later	
-	# READ_QOPT=""		in case of the previous Illumina-specific offset value of 64
-}			
+
+#Don't need the following functions now: LY			
+#Set_READ_PVAL(){			
+#	READ_PVAL=		
+#	echo "${READ_PVAL}"		
+#}			
+#			
+#Set_READ_QOPT(){			
+#	READ_QOPT=""		
+#	echo "${READ_QOPT}"		
+#			
+#	# READ_QOPT="-Q 33"	in case of CASAVA 1.8 later	
+#	# READ_QOPT=""		in case of the previous Illumina-specific offset value of 64
+#}			
 #--                              #2014/04/08 kikuchi			
 Set_READ_QVAL_MY_CULTIVAR(){			
 	READ_QVAL=30		
 	echo "${READ_QVAL}"		
 }
 
+# Function to setting . Trimmomatic will remove reads shorter that this number (and it's mate)
 Set_MIN_LEN_MY_CULTIVAR_READS(){
 	MIN_LEN_MY_CULTIVAR_READS=90
 	echo "${MIN_LEN_MY_CULTIVAR_READS}"
 }			
-			
-Set_READ_PVAL_MY_CULTIVAR(){			
-	READ_PVAL=		
-	echo "${READ_PVAL}"		
-}			
-			
-Set_READ_QOPT_MY_CULTIVAR(){			
-	READ_QOPT=""		
-	echo "${READ_QOPT}"		
-			
-	# READ_QOPT="-Q 33"		in case of CASAVA 1.8 later
-	# READ_QOPT=""		in case of the previous Illumina-specific offset value of 64
-}			
+#Don't need the following functions now: LY			
+#Set_READ_PVAL_MY_CULTIVAR(){			
+#	READ_PVAL=		
+#	echo "${READ_PVAL}"		
+#}			
+#			
+#Set_READ_QOPT_MY_CULTIVAR(){			
+#	READ_QOPT=""		
+#	echo "${READ_QOPT}"		
+#			
+#	# READ_QOPT="-Q 33"		in case of CASAVA 1.8 later
+#	# READ_QOPT=""		in case of the previous Illumina-specific offset value of 64
+#}			
 			
 # ##################################################			
 # for 2.make_consensus 			

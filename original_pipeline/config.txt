@@ -2,8 +2,8 @@
 # global environment				
 # ##################################################				
 Key0_TopPath_Scripts="./ibrc_scripts" 				# it can be described as either relative path name style or absolute path name style.
-Key0_TopPath_Coval="./execute_Coval/Coval-1.4"    		# it can be described as either relative path name style or absolute path name style.
-				
+#Key0_TopPath_Coval="./execute_Coval/Coval-1.4"    		# it can be described as either relative path name style or absolute path name style.
+								# won't be required in updated pipeline: LY				
 Key0_TopPath_Work="."						# usually set "." because "." means current framework
 Key0_Make_secondary_reference="yes"			#delete one or the other. Leave "yes" to create a secondary ref, otherwise leave "no": LY
 							# if "yes" then give sample name in Key1_My_cultivar_sample_name, otherwise leave blank: LY
@@ -11,9 +11,9 @@ Key0_Make_secondary_reference="yes"			#delete one or the other. Leave "yes" to c
 # ##################################################				
 # Read file 				
 # ##################################################				
-Key1_Bulked_sample_name="mybulk"				
-Key1_Bulked_sample_Type_A="A"				
-Key1_Bulked_sample_Type_B="B"				
+Key1_Bulked_sample_name="mybulk"				#this is the prefix for the directory with the trimmed readfiles
+Key1_Bulked_sample_Type_A="A"					#change this to name of bulk if desired e.g. "susceptible" or "short"
+Key1_Bulked_sample_Type_B="B"					#change this to name of bulk if desired. e.g "resistant" or "tall": LY
 Key1_My_cultivar_sample_name="Adelie"				#name of secondary reference. Leave as "" if secondary 
 								#ref is not being generated: LY
 				
