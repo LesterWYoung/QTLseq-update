@@ -2,8 +2,7 @@
 # global environment				
 # ##################################################				
 Key0_TopPath_Scripts="./ibrc_scripts" 				# it can be described as either relative path name style or absolute path name style.
-#Key0_TopPath_Coval="./execute_Coval/Coval-1.4"    		# it can be described as either relative path name style or absolute path name style.
-								# won't be required in updated pipeline: LY				
+
 Key0_TopPath_Work="."						# usually set "." because "." means current framework
 Key0_Make_secondary_reference="yes"			#delete one or the other. Leave "yes" to create a secondary ref, otherwise leave "no": LY
 							# if "yes" then give sample name in Key1_My_cultivar_sample_name, otherwise leave blank: LY
@@ -25,36 +24,16 @@ Key1_Path_to_trimmomatic="./ibrc_scripts/1./trimmomatic-0.38.jar"
 Key1_Phred_quality_score_for_bulked=30				
 Key1_Min_length_bulked_reads=90					# Trimmomatic removes trimmed reads shorter than this length in bulks: LY
 
-#Key1_Percentage_of_above_score_for_bulked=90			# don't need this now: LY				
-#Key1_Score_type_for_bulked="illumina"                 		# "illumina" or "sanger" #assuming illumina reads as of 2019: LY
-
 Key1_Phred_quality_score_for_my_cultivar=30			
 Key1_Min_length_my_cultivar_reads=90				# Trimmomatic removes trimmed reads shorter than this length in secondary ref: LY
-#Key1_Percentage_of_above_score_for_my_cultivar=90		# don't need this now: LY
-#Key1_Score_type_for_my_cultivar="illumina"              	# "illumina" or "sanger" #assuming illumina reads as of 2019: LY
 
 # ##################################################				
 # Developing reference sequence 				
 # ##################################################				
-Key2_Path_public_reference_FASTA="./downloaded_fasta/INSERT_ref_seq_fasta_filename_here"
+Key2_Path_public_reference_FASTA="./downloaded_fasta/LG5frag.fa"
+#Key2_Path_public_reference_FASTA="./downloaded_fasta/INSERT_ref_seq_fasta_filename_here"
 								#Change INSERT_ref_seq_fasta_filename_here to reference sequence
 								#Put .fasta file with reference sequence into ./downloaded_fasta 				
-				
-# --------------------				
-# coval refine 				
-# --------------------				
-Key2_Maximum_number_mismatch_default_for_my_cultivar=10				# Maximum number mismatches tolerated in a read
-Key2_Coval_realign_for_my_cultivar="yes"              				# set "yes" if you do re-align, or set "no" if you don't 
-				
-# --------------------				
-# coval call 				
-# --------------------				
-Key2_Minimum_number_of_depth_for_my_cultivar=3				
-Key2_Maximum_number_of_depth_for_my_cultivar=10000				
-Key2_Minimum_frequency_for_my_cultivar=0.5				
-Key2_Minimum_number_of_reads_heterozygous_for_my_cultivar=3				
-Key2_Minimum_basecall_quality_for_my_cultivar=3				
-Key2_Minimum_average_basecall_quality_for_my_cultivar=20				
 				
 # ##################################################				
 # bwa option				
@@ -64,27 +43,6 @@ Key2_BWA_CPU=5
 # ##################################################				
 # Bulked DNA analysis				
 # ##################################################				
-Key3_Mode_reference_FASTA=0                         				# 0 : use FASTA which is created in current framework
-				# 1 : use FASTA which has already been created in external framework
-				
-Key3_Path_reference_FASTA=""				# if Key3_Mode_reference_FASTA=1 then you must set Key3_Path_reference_FASTA
-				
-# --------------------				
-# coval filter 				
-# --------------------				
-Key3_Maximum_number_mismatch_default_for_bulked=10				
-Key3_Maximum_mismatches=2,3,4                       				# e.g. 2,3,4 with comma delimiter
-Key3_Coval_realign_for_bulked="yes"                 				# set "yes" if you do re-align, or set "no" if you don't  
-				
-# --------------------				
-# coval call 				
-# --------------------				
-Key3_Minimum_number_of_depth_for_bulked=3				
-Key3_Maximum_number_of_depth_for_bulked=75				
-Key3_Minimum_frequency_for_bulked=0.0				
-Key3_Minimum_number_of_reads_heterozygous_for_bulked=3				
-Key3_Minimum_basecall_quality_for_bulked=3				
-Key3_Minimum_average_basecall_quality_for_bulked=20				
 				
 # --------------------				
 # exclude_common_snps 				

@@ -11,6 +11,9 @@ echo "\n----------\nTrimming and filtering secondary readfiles\n----------"
 
 printf "Path to trimmomatic: "
 	Set_TRIMMOMATIC			# TRIMMOMATIC=${Key1_Path_to_trimmomatic}. Probably .ibrc_scripts/1./trimmomatic
+printf "Path to trimmed parental readfiles: "
+	Set_PATH_TO_TRIMMED_PARENTAL_READS
+	short_trimmed_dir=`basename ${PATH_TO_TRIMMED_PARENTAL_READS}`; echo "Shortened to ${short_trimmed_dir}"
 
 printf "Min Phred value for ${MY_CUTLIVAR_NAME} reads: "
 	Set_READ_QVAL_MY_CULTIVAR	# READ_QVAL_MY_CULTIVAR=${Key1_Phred_quality_score_for_my_cultivar} in config.txt
@@ -24,6 +27,7 @@ printf "Name of parental cultivar used for secondary reference: "
 	eval ${CMD}
 
 echo "Parental readfiles being used to generate secondary reference"; cat readfilelist
+
 
 numfiles=`wc -l < readfilelist`
 	if [ $numfiles -eq 0 ]      	# if no readfiles are present
@@ -52,15 +56,15 @@ while read -r readfile; do
 	if [[ $read_direction == "R1" ]]; then		#if foward readfile, then assign forward variable names
         						#echo "found R1"
 		readfileR1=$readfile
-		outfileR1paired="secondary_readfiles/${MY_CULTIVAR_NAME}-paired_R1.fastq.gz"
-		outfileR1unpaired="secondary_readfiles/${MY_CULTIVAR_NAME}-unpaired_R1.fastq.gz"
+		outfileR1paired="${short_trimmed_dir}/${MY_CULTIVAR_NAME}-paired_R1.fastq.gz"
+		outfileR1unpaired="${short_trimmed_dir}/${MY_CULTIVAR_NAME}-unpaired_R1.fastq.gz"
 							# echo "$readfileR1  $outfileR1paired   $outfileR1unpaired"
 
 	else
         						#echo "found R2"
 		readfileR2=$readfile
-		outfileR2paired="secondary_readfiles/${MY_CULTIVAR_NAME}-paired_R2.fastq.gz"
-		outfileR2unpaired="secondary_readfiles/${MY_CULTIVAR_NAME}-unpaired_R2.fastq.gz"
+		outfileR2paired="${short_trimmed_dir}/${MY_CULTIVAR_NAME}-paired_R2.fastq.gz"
+		outfileR2unpaired="${short_trimmed_dir}/${MY_CULTIVAR_NAME}-unpaired_R2.fastq.gz"
 							# echo "$readfileR2  $outfileR2paired   $outfileR2unpaired"
 		if [ ! -f ${readfileR2} ]; then         # checks to see if reverse file exists. If not, then exit
                                 echo "Warning! Expected to find ${readfileR2} to match ${readfileR1}, but it doesn't exist!"
