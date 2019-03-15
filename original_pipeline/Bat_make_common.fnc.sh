@@ -184,13 +184,15 @@ Set_MY_CULTIVAR_NAME(){
 }			
 			
 # ==================================================			
-# Bat_bwa2bam.sh			
+# Bat_bowtie2_secondaryref.sh			
 # ==================================================			
 Set_PUBLIC_REF_FASTA(){			
 	REF_FASTA="${Key2_Path_public_reference_FASTA}"		
 	echo "\${REF_FASTA}"		
 }			
 			
+
+
 # ##################################################			
 # for 3.alignment			
 # ##################################################			
@@ -215,12 +217,20 @@ Set_REF_FASTA(){
 }			
 			
 # --------------------------------------------------			
-# for Bat_bwa2bam.sh			
+# for Bowtie2 alignment		
 # --------------------------------------------------			
-Set_BWA_CPU(){			
-	BWA_CPU=${Key2_BWA_CPU}		
-	echo "\${BWA_CPU}"		
+Set_BOWTIE2_CPU(){			
+	BOWTIE2_CPU=${Key2_Bowtie2_CPU}		
+	echo "\${BOWTIE2_CPU}"	
 }			
-			
+
+Set_BOWTIE2_OPTIONS(){
+	BOWTIE2_OPTIONS="${Key2_Bowtie2_discordant}"
+	BOWTIE2_OPTIONS="$BOWTIE2_OPTIONS ${Key2_Bowtie2_unaligned}"
+	BOWTIE2_OPTIONS="$BOWTIE2_OPTIONS ${Key2_Bowtie2_mixed}"
+	BOWTIE2_OPTIONS="$BOWTIE2_OPTIONS ${Key2_Bowtie2_sensitivity}"
+	BOWTIE2_OPTIONS="$BOWTIE2_OPTIONS ${Key2_Bowtie2_sensitivity-local}"
+	echo "\${BOWTIE2_OPTIONS}"
+}
 			
 EOT

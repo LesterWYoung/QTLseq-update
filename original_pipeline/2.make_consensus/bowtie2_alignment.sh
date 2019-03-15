@@ -30,6 +30,7 @@ echo "----------\nGenerating secondary reference using trimmed readfiles in 1.qu
 
                 read_direction=`cut -f 2 -d "_" <<< $readfilename | cut -f 1 -d "."`
                                                         #searches for "-R[12]." to get read direction
+							#echo "Read direction: $read_direction"
         	if [[ ${read_direction} == "R1" ]]; then
 			forward_readfile=${readfile}
 							#echo ${read_direction} ${forward_readfile}
@@ -46,13 +47,53 @@ echo "----------\nGenerating secondary reference using trimmed readfiles in 1.qu
 	outfilename="${short_sec_ref_dir}/${MY_CULTIVAR_NAME}_secondaryref"
 
 #now align reads against reference sequence in Set_PUBLIC_REF_FASTA
-#first, determine if bowtie2 library is present in Set_PUBLIC_REF_FASTA. Build library if not present
 
-printf "Location of reference sequence: "; Set_PUBLIC_REF_FASTA
-exit
-ref_seq_name="Beth_13_4-6.fa"
-if ! [[ `find ../reference_sequence/ref_seq.1.bt2` ]]           #if ref_seq.1.bt2 is not present then build library
-then
-        echo "Building bowtie2 library using $ref_seq_name"
-        bowtie2-build "../reference_sequence/${ref_seq_name}" ref_seq
+#----------
+# Determine if bowtie2 library is present. Build library if not present
+#----------
+printf "Reference sequence being used: "; Set_PUBLIC_REF_FASTA
+ref_seq_dir=`dirname ${REF_FASTA}`
+ref_seq_filename=`basename ${REF_FASTA}`
+ref_seq_basename=`cut -f 1 -d "." <<< $ref_seq_filename`
+bowtie_library_name="${ref_seq_dir}/${ref_seq_basename}.1.bt2"
+
+if [ ! -f "${bowtie_library_name}" ]; then           #if ${ref_seq_basename}.1.bt2 is not present then build library
+	echo "Building bowtie2 library using '${ref_seq_basename}' as library name"
+	CMD="bowtie2-build ${REF_FASTA} ${ref_seq_dir}/${ref_seq_basename}"
+	echo ${CMD}
+	eval ${CMD}
+	
+else
+	echo "Bowtie2 library for ${ref_seq_filename} exists"
 fi
+
+# ----------
+# Perform bowtie2 alignment
+# ----------
+echo "\n----------\nPerforming bowtie2 alignment to generate secondary reference\n----------"
+printf "Bowtie2 options used: "; Set_BOWTIE2_OPTIONS
+printf "Number of threads to be used: "; Set_BOWTIE2_CPU
+
+CMD="bowtie2 ${BOWTIE2_OPTIONS}"			# change options in ../config.txt.
+CMD="$CMD -p ${BOWTIE2_CPU}"				# runs bowtie2 multithreaded
+CMD="$CMD --rg-id ${MY_CULTIVAR_NAME}_secondaryref}"	# add RG tag to results
+CMD="$CMD -x ${REF_FASTA}"				# library name for reference sequence 
+CMD="$CMD -1 $forward_readfile -2 $reverse_readfile"	# readfile locations and names
+CMD="$CMD -S $outfilename.sam"
+
+echo $CMD
+#eval $CMD
+
+#bowtie2 -p 4 --no-unal --no-mixed --no-discordant --rg-id RajaLG5 -x LG5-1.150..1.375Mbp \
+#	-q -1 RxBF2_Raja_1.fq.gz -2 RxBF2_Raja_2.fq.gz | \
+#	samtools view -@ 4 -Shb - | samtools sort -@4 -o $outname -
+
+#outname="BisonLG5-1.15Mbp.sort.bam"
+
+#bowtie2 -p 4 --no-unal --no-mixed --no-discordant --rg-id BisonLG5 -x LG5-1.150..1.375Mbp \
+#	-q -1 RxBF2_Bison_1.fq.gz -2 RxBF2_Bison_2.fq.gz | \
+#	samtools view -@ 4 -Shb - | samtools sort -@4 -o $outname -
+
+#note: use trimmomatic filtered reads (performed on raw fastq reads from PBI)
+# RxBF2_Bison_1_fq.gz is the 2P output from trimmomatic
+	
