@@ -225,11 +225,7 @@ Set_BOWTIE2_CPU(){
 }			
 
 Set_BOWTIE2_OPTIONS(){
-	BOWTIE2_OPTIONS="${Key2_Bowtie2_discordant}"
-	BOWTIE2_OPTIONS="$BOWTIE2_OPTIONS ${Key2_Bowtie2_unaligned}"
-	BOWTIE2_OPTIONS="$BOWTIE2_OPTIONS ${Key2_Bowtie2_mixed}"
-	BOWTIE2_OPTIONS="$BOWTIE2_OPTIONS ${Key2_Bowtie2_sensitivity}"
-	BOWTIE2_OPTIONS="$BOWTIE2_OPTIONS ${Key2_Bowtie2_sensitivity-local}"
+	BOWTIE2_OPTIONS='${Key2_BT2op1} ${Key2_BT2op2} ${Key2_BT2op3} ${Key2_BT2op4} ${Key2_BT2op5}'
 	echo "\${BOWTIE2_OPTIONS}"
 }
 			

@@ -39,11 +39,11 @@ Key2_Path_public_reference_FASTA="./downloaded_fasta/LG5frag.fa"
 # bowtie2 options				
 # ##################################################				
 Key2_Bowtie2_CPU=4						#number of threads bowtie2 should use
-Key2_Bowtie2_discordant="--no-discordant"    			# does not keep discordant alignments. Change to "" to include				
-Key2_Bowtie2_unaligned="--no-unal"				# don't include unaligned reads in output SAM
-Key2_Bowtie2_mixed="--no-mixed"					# keep reads only if both reads in a pair align. Change to "" to include unpaired reads
-Key2_Bowtie2_sensitivity="--sensitive"				# default end-to-end sensitivity. Options: --very-fast --fast --very-sensitive
-Key2_Bowtie2_sensitivity_local="--sensitive-local"		# local alignment sensitivity. Options: --very-fast-local --fast-local --very-sensitive-local
+Key2_BT2op1='--no-discordant'    			# does not keep discordant alignments. Change to '' to include				
+Key2_BT2op2='--no-unal'				# do not include unaligned reads in output SAM
+Key2_BT2op3='--no-mixed'					# keep reads only if both reads in a pair align. Change to '' to include unpaired reads
+Key2_BT2op4='--sensitive'				# default end-to-end sensitivity. Options: --very-fast --fast --very-sensitive
+Key2_BT2op5='--sensitive-local'		# local alignment sensitivity. Options: --very-fast-local --fast-local --very-sensitive-local
 # ##################################################				
 # Bulked DNA analysis				
 # ##################################################				

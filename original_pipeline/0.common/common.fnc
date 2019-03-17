@@ -112,11 +112,7 @@ Set_BOWTIE2_CPU(){
 }			
 
 Set_BOWTIE2_OPTIONS(){
-	BOWTIE2_OPTIONS="--no-discordant"
-	BOWTIE2_OPTIONS=" --no-unal"
-	BOWTIE2_OPTIONS=" --no-mixed"
-	BOWTIE2_OPTIONS=" --sensitive"
-	BOWTIE2_OPTIONS=" --sensitive"
+	BOWTIE2_OPTIONS='--no-discordant --no-unal --no-mixed --sensitive --sensitive-local'
 	echo "${BOWTIE2_OPTIONS}"
 }
 			
