@@ -85,16 +85,17 @@ CMD="$CMD | samtools view -@ 4 -Shb - | samtools sort -@ 4 -o $outfilename"
 echo $CMD
 eval $CMD
 
-#bowtie2 -p 4 --no-unal --no-mixed --no-discordant --rg-id RajaLG5 -x LG5-1.150..1.375Mbp \
-#	-q -1 RxBF2_Raja_1.fq.gz -2 RxBF2_Raja_2.fq.gz | \
-#	samtools view -@ 4 -Shb - | samtools sort -@4 -o $outname -
+# ----------
+# Call SNPs and generate consensus sequence
+# ----------
+# This part of the script takes the .bam file generated above calls SNPs 
+# and generates a consensus sequence. It puts the consensus sequence into
+# ./secondary_reference/ with the name ${MY_CULTIVAR_NAME}_secondaryref.fasta
 
-#outname="BisonLG5-1.15Mbp.sort.bam"
+bcftools mpileup
+bcftools filter
+bcftools call
+bcftools consensus
 
-#bowtie2 -p 4 --no-unal --no-mixed --no-discordant --rg-id BisonLG5 -x LG5-1.150..1.375Mbp \
-#	-q -1 RxBF2_Bison_1.fq.gz -2 RxBF2_Bison_2.fq.gz | \
-#	samtools view -@ 4 -Shb - | samtools sort -@4 -o $outname -
 
-#note: use trimmomatic filtered reads (performed on raw fastq reads from PBI)
-# RxBF2_Bison_1_fq.gz is the 2P output from trimmomatic
-	
+
