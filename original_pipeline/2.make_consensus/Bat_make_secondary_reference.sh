@@ -83,7 +83,7 @@ CMD="$CMD -1 $forward_readfile -2 $reverse_readfile"	# readfile locations and na
 CMD="$CMD | samtools view -@ 4 -Shb - | samtools sort -@ 4 -o $outfilename"
 
 echo $CMD
-eval $CMD
+#eval $CMD
 
 # ----------
 # Call SNPs and generate consensus sequence
@@ -92,10 +92,23 @@ eval $CMD
 # and generates a consensus sequence. It puts the consensus sequence into
 # ./secondary_reference/ with the name ${MY_CULTIVAR_NAME}_secondaryref.fasta
 
-bcftools mpileup
-bcftools filter
-bcftools call
-bcftools consensus
+printf ".bam file used: ${outfilename}\n"
+printf "bcftools mpileup options used: "; Set_BCFT_MPILEUP
+printf "bcftools call options used: "; Set_BCFT_CALL
+printf "bcftools normalize options used: "; Set_BCFT_NORM
+printf "bcftools filter options used: "; Set_BCFT_FILTER
 
+secondary_vcffile="${short_sec_ref_dir}/${MY_CULTIVAR_NAME}_secondaryref.vcf.gz"
 
+CMD="${BCFT_MPILEUP} $outfilename | ${BCFT_NORM} | ${BCFT_CALL} | ${BCFT_FILTER}"
+echo $CMD
+#eval $CMD
 
+CMD="bcftools index $secondary_vcffile"
+eval $CMD
+
+printf "bcftools consensus options used: "; Set_BCFT_CONSENSUS
+secondary_ref="${short_sec_ref_dir}/${MY_CULTIVAR_NAME}_secondaryref.fa"
+CMD="${BCFT_CONSENSUS}"
+echo $CMD
+eval $CMD
