@@ -66,7 +66,7 @@ Set_PATH_TO_SECONDARY_REF(){
 }			
 
 Set_MY_CULTIVAR_NAME(){			
-	MY_CULTIVAR_NAME="Adelie"		
+	MY_CULTIVAR_NAME="AdelieLG13"		
 	echo "${MY_CULTIVAR_NAME}"		
 }			
 			
@@ -74,7 +74,7 @@ Set_MY_CULTIVAR_NAME(){
 # Bat_bowtie2_secondaryref.sh			
 # ==================================================			
 Set_PUBLIC_REF_FASTA(){			
-	REF_FASTA="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/downloaded_fasta/LG5frag.fa"		
+	REF_FASTA="/Users/LWY/Unix/QTLseq-update-local/QTLseq-update/original_pipeline/downloaded_fasta/Beth_LG13_4mbp-6mbp.fa"		
 	echo "${REF_FASTA}"		
 }			
 			
@@ -114,5 +114,33 @@ Set_BOWTIE2_CPU(){
 Set_BOWTIE2_OPTIONS(){
 	BOWTIE2_OPTIONS='--no-discordant --no-unal --no-mixed --sensitive --sensitive-local'
 	echo "${BOWTIE2_OPTIONS}"
+}
+
+# --------------------------------------------------
+# for bcftools processing
+# --------------------------------------------------
+Set_BCFT_MPILEUP(){
+	BCFT_MPILEUP='bcftools mpileup --threads ${BOWTIE2_CPU} -C 50 -Ou -f ${REF_FASTA}'
+	echo "${BCFT_MPILEUP}"
+}
+
+Set_BCFT_CALL(){
+        BCFT_CALL='bcftools call --threads ${BOWTIE2_CPU} -mv -P 0.9e-3 -Ou ' 
+        echo "${BCFT_CALL}"
+}
+
+Set_BCFT_NORM(){
+        BCFT_NORM='bcftools norm --threads ${BOWTIE2_CPU} -d all -m +both -Ou -f ${REF_FASTA}' 
+        echo "${BCFT_NORM}"
+}
+
+Set_BCFT_FILTER(){
+        BCFT_FILTER='bcftools filter --threads ${BOWTIE2_CPU} -g 3 -i "DP>7" -Oz -o $secondary_vcffile' 
+        echo "${BCFT_FILTER}"
+}
+
+Set_BCFT_CONSENSUS(){
+        BCFT_CONSENSUS='bcftools consensus -f ${REF_FASTA} $secondary_vcffile -o $secondary_ref' 
+        echo "${BCFT_CONSENSUS}"
 }
 			

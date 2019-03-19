@@ -228,5 +228,33 @@ Set_BOWTIE2_OPTIONS(){
 	BOWTIE2_OPTIONS='${Key2_BT2op1} ${Key2_BT2op2} ${Key2_BT2op3} ${Key2_BT2op4} ${Key2_BT2op5}'
 	echo "\${BOWTIE2_OPTIONS}"
 }
+
+# --------------------------------------------------
+# for bcftools processing
+# --------------------------------------------------
+Set_BCFT_MPILEUP(){
+	BCFT_MPILEUP='${Key2_BCFT_mpileup}'
+	echo "\${BCFT_MPILEUP}"
+}
+
+Set_BCFT_CALL(){
+        BCFT_CALL='${Key2_BCFT_call}' 
+        echo "\${BCFT_CALL}"
+}
+
+Set_BCFT_NORM(){
+        BCFT_NORM='${Key2_BCFT_norm}' 
+        echo "\${BCFT_NORM}"
+}
+
+Set_BCFT_FILTER(){
+        BCFT_FILTER='${Key2_BCFT_filter}' 
+        echo "\${BCFT_FILTER}"
+}
+
+Set_BCFT_CONSENSUS(){
+        BCFT_CONSENSUS='${Key2_BCFT_consensus}' 
+        echo "\${BCFT_CONSENSUS}"
+}
 			
 EOT

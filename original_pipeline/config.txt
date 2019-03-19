@@ -13,7 +13,7 @@ Key0_Make_secondary_reference="yes"			#delete one or the other. Leave "yes" to c
 Key1_Bulked_sample_name="mybulk"				#this is the prefix for the directory with the trimmed readfiles
 Key1_Bulked_sample_Type_A="A"					#change this to name of bulk if desired e.g. "susceptible" or "short"
 Key1_Bulked_sample_Type_B="B"					#change this to name of bulk if desired. e.g "resistant" or "tall": LY
-Key1_My_cultivar_sample_name="Adelie"				#name of secondary reference. Leave as "" if secondary 
+Key1_My_cultivar_sample_name="AdelieLG13"			#name of secondary reference. Leave as "" if secondary 
 								#ref is not being generated: LY
 				
 # ##################################################				
@@ -30,7 +30,7 @@ Key1_Min_length_my_cultivar_reads=90				# Trimmomatic removes trimmed reads shor
 # ##################################################				
 # Developing reference sequence 				
 # ##################################################				
-Key2_Path_public_reference_FASTA="./downloaded_fasta/LG5frag.fa"
+Key2_Path_public_reference_FASTA="./downloaded_fasta/Beth_LG13_4mbp-6mbp.fa"
 #Key2_Path_public_reference_FASTA="./downloaded_fasta/INSERT_ref_seq_fasta_filename_here"
 								#Change INSERT_ref_seq_fasta_filename_here to reference sequence
 								#Put .fasta file with reference sequence into ./downloaded_fasta 				
@@ -44,6 +44,16 @@ Key2_BT2op2='--no-unal'				# do not include unaligned reads in output SAM
 Key2_BT2op3='--no-mixed'					# keep reads only if both reads in a pair align. Change to '' to include unpaired reads
 Key2_BT2op4='--sensitive'				# default end-to-end sensitivity. Options: --very-fast --fast --very-sensitive
 Key2_BT2op5='--sensitive-local'		# local alignment sensitivity. Options: --very-fast-local --fast-local --very-sensitive-local
+
+# ##################################################				
+# bcftools processes
+# ##################################################				
+Key2_BCFT_mpileup='bcftools mpileup --threads ${BOWTIE2_CPU} -C 50 -Ou -f ${REF_FASTA}'
+Key2_BCFT_norm='bcftools norm --threads ${BOWTIE2_CPU} -d all -m +both -Ou -f ${REF_FASTA}'
+Key2_BCFT_call='bcftools call --threads ${BOWTIE2_CPU} -mv -P 0.9e-3 -Ou '
+Key2_BCFT_filter='bcftools filter --threads ${BOWTIE2_CPU} -g 3 -i "DP>7" -Oz -o $secondary_vcffile'
+Key2_BCFT_consensus='bcftools consensus -f ${REF_FASTA} $secondary_vcffile -o $secondary_ref'
+
 # ##################################################				
 # Bulked DNA analysis				
 # ##################################################				
