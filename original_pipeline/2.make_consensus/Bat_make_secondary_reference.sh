@@ -5,7 +5,9 @@
 . ../0.common/common.fnc
 # --------------------------------------------------
 
-echo "----------\nGenerating secondary reference using trimmed readfiles in 1.qualify_read/secondary_readfiles"
+echo "\n--------------------"
+echo "Generating secondary reference using trimmed readfiles in 1.qualify_read/secondary_readfiles"
+echo "--------------------"
 	printf "Path to trimmed parental readfiles: "; Set_PATH_TO_TRIMMED_PARENTAL_READS
 		short_trimmed_reads_dir="../`echo ${PATH_TO_TRIMMED_PARENTAL_READS} | rev | cut -f 1,2 -d "/" | rev`"
 		echo "Shortened to ${short_trimmed_reads_dir}"
@@ -47,10 +49,10 @@ echo "----------\nGenerating secondary reference using trimmed readfiles in 1.qu
 	outfilename="${short_sec_ref_dir}/${MY_CULTIVAR_NAME}_secondaryref.bam"
 
 #now align reads against reference sequence in Set_PUBLIC_REF_FASTA
-
-#----------
+#--------------------
 # Determine if bowtie2 library is present. Build library if not present
-#----------
+#--------------------
+echo "\n----------\nLooking for bowtie2 library for reference sequence"
 printf "Reference sequence being used: "; Set_PUBLIC_REF_FASTA
 ref_seq_dir=`dirname ${REF_FASTA}`
 ref_seq_filename=`basename ${REF_FASTA}`
@@ -64,15 +66,16 @@ if [ ! -f "${bowtie_library_name}" ]; then           #if ${ref_seq_basename}.1.b
 	eval ${CMD}
 	
 else
-	echo "Bowtie2 library for ${ref_seq_filename} exists"
+	echo "Bowtie2 library for ${ref_seq_filename} is present in ${ref_seq_dir}"
 fi
 
-# ----------
+# --------------------
 # Perform bowtie2 alignment
-# ----------
-echo "\n----------\nPerforming bowtie2 alignment to generate secondary reference\n----------"
-printf "Bowtie2 options used: "; Set_BOWTIE2_OPTIONS
-printf "Number of threads to be used: "; Set_BOWTIE2_CPU
+# ---------------------
+echo "\n--------------------\nPerforming bowtie2 alignment to generate secondary reference"
+echo "--------------------"
+printf "Using these bowtie2 options: "; Set_BOWTIE2_OPTIONS
+printf "Number of threads to use: "; Set_BOWTIE2_CPU
 
 CMD="bowtie2 ${BOWTIE2_OPTIONS}"			# change options in ../config.txt.
 CMD="$CMD -p ${BOWTIE2_CPU}"				# runs bowtie2 multithreaded
@@ -80,19 +83,21 @@ CMD="$CMD --rg-id ${MY_CULTIVAR_NAME}_secondaryref"	# add RG tag to results
 CMD="$CMD -x ${ref_seq_dir}/${ref_seq_basename}"	# library name for reference sequence 
 CMD="$CMD -1 $forward_readfile -2 $reverse_readfile"	# readfile locations and names
 							# CMD="$CMD -S $outfilename.sam"
-CMD="$CMD | samtools view -@ 4 -Shb - | samtools sort -@ 4 -o $outfilename"
+CMD="$CMD | samtools view -@ 4 -Shb - | samtools sort -@ 4 -o ${outfilename}"
 
-echo $CMD
-#eval $CMD
+echo ${CMD}
+#eval ${CMD}
 
-# ----------
+# --------------------
 # Call SNPs and generate consensus sequence
-# ----------
+# --------------------
 # This part of the script takes the .bam file generated above calls SNPs 
 # and generates a consensus sequence. It puts the consensus sequence into
 # ./secondary_reference/ with the name ${MY_CULTIVAR_NAME}_secondaryref.fasta
 
-printf ".bam file used: ${outfilename}\n"
+echo "\n--------------------\nFiltering bowtie2 alignment with bcftools"
+echo "--------------------" 
+printf "bam file used: ${outfilename}\n"
 printf "bcftools mpileup options used: "; Set_BCFT_MPILEUP
 printf "bcftools call options used: "; Set_BCFT_CALL
 printf "bcftools normalize options used: "; Set_BCFT_NORM
@@ -101,14 +106,14 @@ printf "bcftools filter options used: "; Set_BCFT_FILTER
 secondary_vcffile="${short_sec_ref_dir}/${MY_CULTIVAR_NAME}_secondaryref.vcf.gz"
 
 CMD="${BCFT_MPILEUP} $outfilename | ${BCFT_NORM} | ${BCFT_CALL} | ${BCFT_FILTER}"
-echo $CMD
-#eval $CMD
+echo ${CMD}
+#eval ${CMD}
 
-CMD="bcftools index $secondary_vcffile"
-eval $CMD
+CMD="bcftools index ${secondary_vcffile}"
+#eval ${CMD}
 
 printf "bcftools consensus options used: "; Set_BCFT_CONSENSUS
 secondary_ref="${short_sec_ref_dir}/${MY_CULTIVAR_NAME}_secondaryref.fa"
 CMD="${BCFT_CONSENSUS}"
-echo $CMD
-eval $CMD
+echo ${CMD}
+#eval ${CMD}
