@@ -38,20 +38,20 @@ Key2_Path_public_reference_FASTA="./downloaded_fasta/Beth_LG13_4mbp-6mbp.fa"
 # ##################################################				
 # bowtie2 options				
 # ##################################################				
-Key2_Bowtie2_CPU=4						#number of threads bowtie2 should use
+Key2_Bowtie2_CPU=4					#number of threads bowtie2 should use
 Key2_BT2op1='--no-discordant'    			# does not keep discordant alignments. Change to '' to include				
-Key2_BT2op2='--no-unal'				# do not include unaligned reads in output SAM
-Key2_BT2op3='--no-mixed'					# keep reads only if both reads in a pair align. Change to '' to include unpaired reads
+Key2_BT2op2='--no-unal'					# do not include unaligned reads in output SAM
+Key2_BT2op3='--no-mixed'				# keep reads only if both reads in a pair align. Change to '' to include unpaired reads
 Key2_BT2op4='--sensitive'				# default end-to-end sensitivity. Options: --very-fast --fast --very-sensitive
-Key2_BT2op5='--sensitive-local'		# local alignment sensitivity. Options: --very-fast-local --fast-local --very-sensitive-local
+Key2_BT2op5='--sensitive-local'				# local alignment sensitivity. Options: --very-fast-local --fast-local --very-sensitive-local
 
 # ##################################################				
 # bcftools processes
 # ##################################################				
-Key2_BCFT_mpileup='bcftools mpileup --threads ${BOWTIE2_CPU} -C 50 -Ou -f ${REF_FASTA}'
-Key2_BCFT_norm='bcftools norm --threads ${BOWTIE2_CPU} -d all -m +both -Ou -f ${REF_FASTA}'
+Key2_BCFT_mpileup='bcftools mpileup --threads ${BOWTIE2_CPU} -C 50 -Ou -f ${REF_FASTA}'		
+Key2_BCFT_norm='bcftools norm --threads ${BOWTIE2_CPU} -m -any -Ou -f ${REF_FASTA}'
 Key2_BCFT_call='bcftools call --threads ${BOWTIE2_CPU} -mv -P 0.9e-3 -Ou '
-Key2_BCFT_filter='bcftools filter --threads ${BOWTIE2_CPU} -g 3 -i "DP>7" -Oz -o $secondary_vcffile'
+Key2_BCFT_filter='bcftools filter --threads ${BOWTIE2_CPU} -g 3 -i "DP>6" -Oz -o $secondary_vcffile'
 Key2_BCFT_consensus='bcftools consensus -f ${REF_FASTA} $secondary_vcffile -o $secondary_ref'
 
 # ##################################################				
