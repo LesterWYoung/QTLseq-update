@@ -107,10 +107,11 @@ secondary_vcffile="${short_sec_ref_dir}/${MY_CULTIVAR_NAME}_secondaryref.vcf.gz"
 
 CMD="${BCFT_MPILEUP} $outfilename | ${BCFT_NORM} | ${BCFT_CALL} | ${BCFT_FILTER}"
 echo ${CMD}
-#eval ${CMD}
+eval ${CMD}
 
-CMD="bcftools index ${secondary_vcffile}"
-#eval ${CMD}
+CMD="bcftools index -f ${secondary_vcffile}"
+echo ${CMD}
+eval ${CMD}
 
 printf "bcftools consensus options used: "; Set_BCFT_CONSENSUS
 secondary_ref="${short_sec_ref_dir}/${MY_CULTIVAR_NAME}_secondaryref.fa"
