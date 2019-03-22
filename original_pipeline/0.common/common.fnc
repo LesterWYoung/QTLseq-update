@@ -130,12 +130,12 @@ Set_BCFT_CALL(){
 }
 
 Set_BCFT_NORM(){
-        BCFT_NORM='bcftools norm --threads ${BOWTIE2_CPU} -d all -m +both -Ou -f ${REF_FASTA}' 
+        BCFT_NORM='bcftools norm --threads ${BOWTIE2_CPU} -m -any -Ou -f ${REF_FASTA}' 
         echo "${BCFT_NORM}"
 }
 
 Set_BCFT_FILTER(){
-        BCFT_FILTER='bcftools filter --threads ${BOWTIE2_CPU} -g 3 -i "DP>7" -Oz -o $secondary_vcffile' 
+        BCFT_FILTER='bcftools filter --threads ${BOWTIE2_CPU} -g 3 -i "DP>6" -Oz -o $secondary_vcffile' 
         echo "${BCFT_FILTER}"
 }
 

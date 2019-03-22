@@ -4,16 +4,6 @@
 # load common functions			
 . ../0.common/common.fnc			
 # --------------------------------------------------			
-
-printf "Is secondary reference being made? "; Set_MAKE_SECONDARY_REF
-if [[ ${MAKE_SECONDARY_REF} == "yes" ]]; then
-	REF_TO_USE="
-else
-	Set_REF_FASTA
-	REF_TO_USE="${REF_FASTA}"
-fi
-
-
 IDA=`Set_BULK_NAME_IDA`			
 IDB=`Set_BULK_NAME_IDB`			
 IDs=(${IDA} ${IDB})			
