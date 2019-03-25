@@ -92,8 +92,8 @@ for bulk_AB in A B; do
 		CMD="$CMD MINLEN:${MIN_LEN_BULKED_READS}"		#filter out reads < set value after trimming
 		CMD="$CMD AVGQUAL:${READ_QVAL}"				#remove read if average quality is less than set value
 		
-#		echo ${CMD}
-#		eval ${CMD}
+		echo ${CMD}
+		eval ${CMD}
 	
 	done < readfilelist_AB					# end of while loop. Goes through all readfiles in bulk
 done								# end of for loop. Does bulk A dnthe bulk B
