@@ -98,31 +98,35 @@ for bulk_AB in A B; do
 
 		echo ${CMD}
 		#eval ${CMD}
+		
+		echo ${outfilename} >> bulk_alignment_filenames
 
-		# --------------------
-		# Call SNPs and determine genotypes
-		# --------------------
-
-		printf "bam file used: ${outfilename}\n"
-		printf "bcftools mpileup options used: "; Set_BCFT_MPILEUP
-		printf "bcftools call options used: "; Set_BCFT_CALL
-		printf "bcftools normalize options used: "; Set_BCFT_NORM
-		printf "bcftools filter options used: "; Set_BCFT_FILTER
-
-		bulk_vcffile="${output_directory}/${shortreadfilename}.vcf.gz"
-
-		CMD="${BCFT_MPILEUP} $outfilename | ${BCFT_NORM} | ${BCFT_CALL} | ${BCFT_FILTER}"
-		echo ${CMD}
-		#eval ${CMD}
-
-		CMD="bcftools index -f ${bulk_vcffile}"
-		echo ${CMD}
-		#eval ${CMD}						#echo ${outfilename}
-			
 	continue				#skips next file (presumably the R2 file) in the while loop
 
 	done < readfilelist_AB						# go onto next readfile		
 done									# go onto mybulk_B
+
+
+# --------------------
+# Call SNPs and determine genotypes
+# --------------------
+echo "\n--------------------\nSNP and INDEL calling using bcftools" 
+printf "bam files used:\n"; cat bulk_alignment_filenames
+printf "bcftools mpileup options used: "; Set_BCFT_MPILEUP_BULK
+printf "bcftools call options used: "; Set_BCFT_CALL_BULK
+printf "bcftools normalize options used: "; Set_BCFT_NORM_BULK
+printf "bcftools filter options used: "; Set_BCFT_FILTER_BULK
+
+bulk_vcffile="${output_directory}/${shortreadfilename}.vcf.gz"
+
+CMD="${BCFT_MPILEUP} | ${BCFT_NORM} | ${BCFT_CALL} | ${BCFT_FILTER}"
+echo ${CMD}
+#eval ${CMD}
+
+CMD="bcftools index -f ${bulk_vcffile}"
+echo ${CMD}
+#eval ${CMD}						#echo ${outfilename}
+			
 
 
 
