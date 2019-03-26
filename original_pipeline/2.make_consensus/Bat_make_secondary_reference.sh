@@ -86,7 +86,7 @@ CMD="$CMD -1 $forward_readfile -2 $reverse_readfile"	# readfile locations and na
 CMD="$CMD | samtools view -@ 4 -Shb - | samtools sort -@ 4 -o ${outfilename}"
 
 echo ${CMD}
-#eval ${CMD}
+eval ${CMD}
 
 # --------------------
 # Call SNPs and generate consensus sequence
@@ -117,4 +117,4 @@ printf "bcftools consensus options used: "; Set_BCFT_CONSENSUS
 secondary_ref="${short_sec_ref_dir}/${MY_CULTIVAR_NAME}_secondaryref.fa"
 CMD="${BCFT_CONSENSUS}"
 echo ${CMD}
-#eval ${CMD}
+eval ${CMD}
