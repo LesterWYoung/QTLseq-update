@@ -27,3 +27,4 @@ original_pipeline/mybulk_B/B_3_R1.fastq.gz
 original_pipeline/mybulk_B/B_3_R2.fastq.gz
 original_pipeline/parental_readfiles/AdelieLG13_R1.fastq.gz
 original_pipeline/parental_readfiles/AdelieLG13_R2.fastq.gz
+original_pipeline/2.make_consensus/secondary_reference/AdelieLG13_secondaryref.bam
