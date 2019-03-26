@@ -90,7 +90,7 @@ for bulk_AB in A B; do
 
 		CMD="bowtie2 ${BOWTIE2_OPTIONS}"                        # change options in ../config.txt.
 		CMD="$CMD -p ${BOWTIE2_CPU}"                            # runs bowtie2 multithreaded
-		CMD="$CMD --rg-id ${MY_BULK_ID}_${sortreadfilename}"     # add RG tag to results
+		CMD="$CMD --rg-id ${MY_BULK_ID}_${shortreadfilename}"     # add RG tag to results
 		CMD="$CMD -x ${ref_seq_dir}/${ref_seq_basename}"        # library name for reference sequence 
 		CMD="$CMD -1 $forward_readfile -2 $reverse_readfile"    # readfile locations and names
           		                                              # CMD="$CMD -S $outfilename.sam"
