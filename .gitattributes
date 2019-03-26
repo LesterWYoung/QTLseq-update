@@ -5,3 +5,4 @@
 *.bcf filter=lfs diff=lfs merge=lfs -text
 *.vcf filter=lfs diff=lfs merge=lfs -text
 *.sam filter=lfs diff=lfs merge=lfs -text
+original_pipeline/2.make_consensus/secondary_reference/AdelieLG13_secondaryref.bam filter=lfs diff=lfs merge=lfs -text
