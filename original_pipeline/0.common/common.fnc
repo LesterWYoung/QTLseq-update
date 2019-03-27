@@ -143,4 +143,27 @@ Set_BCFT_CONSENSUS(){
         BCFT_CONSENSUS='bcftools consensus -f ${REF_FASTA} $secondary_vcffile -o $secondary_ref' 
         echo "${BCFT_CONSENSUS}"
 }
+
+#----------
+# bcftools options for bulk alignment
+#----------
+Set_BCFT_MPILEUP_BULK(){
+	BCFT_MPILEUP_BULK='bcftools mpileup --threads ${BOWTIE2_CPU} -C 50 -Ou -f ${ref_to_use} -S bulk_alignment_filenames'
+	echo "${BCFT_MPILEUP_BULK}"
+}
+
+Set_BCFT_CALL_BULK(){
+        BCFT_CALL_BULK='bcftools call --threads ${BOWTIE2_CPU} -mv -P 1.1e-3 -Ou ' 
+        echo "${BCFT_CALL_BULK}"
+}
+
+Set_BCFT_NORM_BULK(){
+        BCFT_NORM_BULK='bcftools norm --threads ${BOWTIE2_CPU} -m -any -Ou -f ${ref_to_use}' 
+        echo "${BCFT_NORM_BULK}"
+}
+
+Set_BCFT_FILTER_BULK(){
+        BCFT_FILTER_BULK='bcftools filter --threads ${BOWTIE2_CPU} -g 3 -i "DP>5" -Oz -o ${combined_vcf_file}' 
+        echo "${BCFT_FILTER_BULK}"
+}
 			

@@ -256,5 +256,28 @@ Set_BCFT_CONSENSUS(){
         BCFT_CONSENSUS='${Key2_BCFT_consensus}' 
         echo "\${BCFT_CONSENSUS}"
 }
+
+#----------
+# bcftools options for bulk alignment
+#----------
+Set_BCFT_MPILEUP_BULK(){
+	BCFT_MPILEUP_BULK='${Key2_BCFT_mpileup_bulk}'
+	echo "\${BCFT_MPILEUP_BULK}"
+}
+
+Set_BCFT_CALL_BULK(){
+        BCFT_CALL_BULK='${Key2_BCFT_call_bulk}' 
+        echo "\${BCFT_CALL_BULK}"
+}
+
+Set_BCFT_NORM_BULK(){
+        BCFT_NORM_BULK='${Key2_BCFT_norm_bulk}' 
+        echo "\${BCFT_NORM_BULK}"
+}
+
+Set_BCFT_FILTER_BULK(){
+        BCFT_FILTER_BULK='${Key2_BCFT_filter_bulk}' 
+        echo "\${BCFT_FILTER_BULK}"
+}
 			
 EOT
