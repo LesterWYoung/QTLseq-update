@@ -4,6 +4,8 @@
 # load common functions			
 . ../0.common/common.fnc			
 # --------------------------------------------------			
+
+> bulk_alignment_filenames				#clears file if script has been run previously
 echo "\n--------------------\nSetting reference sequence"
 echo "---------------------\n"
 
@@ -43,6 +45,8 @@ for bulk_AB in A B; do
         printf "Aligning trimmed readfiles from bulk: "
         eval ${CMD}                                     #gives $BULK_NAME_ID value of BULK_NAME_IDA or $BULK_NAME_IDB 
 	
+	combined_vcf_file="${combined_vcf_file}${BULK_NAME_ID}_"
+
 	output_directory="${BULK_NAME}_${bulk_AB}_alignments"
 	CMD="\mkdir ${output_directory}"
 	eval ${CMD}
@@ -78,12 +82,12 @@ for bulk_AB in A B; do
 			                                	#echo ${read_direction} ${forward_readfile}
                 else
 	                if [[ ${read_direction} == "R2" ]]; then
-				continue			#skip this readfile as it was just done
+				continue
                 	fi
                 fi
 
 		outfilename="${output_directory}/${shortreadfilename}.bam"
-
+								# sets .bam filename
 		echo "Aligning ${forward_readfile} and ${reverse_readfile}"
 		printf "Using these bowtie2 options: "; Set_BOWTIE2_OPTIONS
 		printf "Number of threads to use: "; Set_BOWTIE2_CPU
@@ -97,7 +101,7 @@ for bulk_AB in A B; do
 		CMD="$CMD | samtools view -@ 4 -Shb - | samtools sort -@ 4 -o ${outfilename}"
 
 		echo ${CMD}
-		#eval ${CMD}
+		eval ${CMD}
 		
 		echo ${outfilename} >> bulk_alignment_filenames
 
@@ -110,6 +114,7 @@ done									# go onto mybulk_B
 # --------------------
 # Call SNPs and determine genotypes
 # --------------------
+combined_vcf_file="${combined_vcf_file}vcf_file.vcf.gz"
 echo "\n--------------------\nSNP and INDEL calling using bcftools" 
 printf "bam files used:\n"; cat bulk_alignment_filenames
 printf "bcftools mpileup options used: "; Set_BCFT_MPILEUP_BULK
@@ -117,15 +122,13 @@ printf "bcftools call options used: "; Set_BCFT_CALL_BULK
 printf "bcftools normalize options used: "; Set_BCFT_NORM_BULK
 printf "bcftools filter options used: "; Set_BCFT_FILTER_BULK
 
-bulk_vcffile="${output_directory}/${shortreadfilename}.vcf.gz"
-
-CMD="${BCFT_MPILEUP} | ${BCFT_NORM} | ${BCFT_CALL} | ${BCFT_FILTER}"
+CMD="${BCFT_MPILEUP_BULK} | ${BCFT_NORM_BULK} | ${BCFT_CALL_BULK} | ${BCFT_FILTER_BULK}"
 echo ${CMD}
-#eval ${CMD}
+eval ${CMD}
 
-CMD="bcftools index -f ${bulk_vcffile}"
+CMD="bcftools index -f ${combined_vcf_file}"
 echo ${CMD}
-#eval ${CMD}						#echo ${outfilename}
+eval ${CMD}						#echo ${outfilename}
 			
 
 
