@@ -148,7 +148,7 @@ Set_BCFT_CONSENSUS(){
 # bcftools options for bulk alignment
 #----------
 Set_BCFT_MPILEUP_BULK(){
-	BCFT_MPILEUP_BULK='bcftools mpileup --threads ${BOWTIE2_CPU} -C 50 -Ou -f ${ref_to_use} -S bulk_alignment_filenames'
+	BCFT_MPILEUP_BULK='bcftools mpileup --threads ${BOWTIE2_CPU} -C 50 -Ou -f ${ref_to_use} mybulk_A_alignments/* mybulk_B_alignments/*'
 	echo "${BCFT_MPILEUP_BULK}"
 }
 

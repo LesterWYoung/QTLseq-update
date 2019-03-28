@@ -54,7 +54,7 @@ Key2_BCFT_call='bcftools call --threads ${BOWTIE2_CPU} -mv -P 0.9e-3 -Ou '
 Key2_BCFT_filter='bcftools filter --threads ${BOWTIE2_CPU} -g 3 -i "DP>6" -Oz -o $secondary_vcffile'
 Key2_BCFT_consensus='bcftools consensus -f ${REF_FASTA} $secondary_vcffile -o $secondary_ref'
 
-Key2_BCFT_mpileup_bulk='bcftools mpileup --threads ${BOWTIE2_CPU} -C 50 -Ou -f ${ref_to_use} -S bulk_alignment_filenames'		
+Key2_BCFT_mpileup_bulk='bcftools mpileup --threads ${BOWTIE2_CPU} -C 50 -Ou -f ${ref_to_use} mybulk_A_alignments/* mybulk_B_alignments/*'		
 Key2_BCFT_norm_bulk='bcftools norm --threads ${BOWTIE2_CPU} -m -any -Ou -f ${ref_to_use}'
 Key2_BCFT_call_bulk='bcftools call --threads ${BOWTIE2_CPU} -mv -P 1.1e-3 -Ou '
 Key2_BCFT_filter_bulk='bcftools filter --threads ${BOWTIE2_CPU} -g 3 -i "DP>5" -Oz -o ${combined_vcf_file}'

@@ -23,6 +23,7 @@ fi
 # Determine if bowtie2 library is present. Build library if not present
 #--------------------
 echo "\n----------\nLooking for bowtie2 library for reference sequence ${ref_to_use}"
+echo "----------"
 ref_seq_dir=`dirname ${ref_to_use}`
 ref_seq_filename=`basename ${ref_to_use}`
 ref_seq_basename=`cut -f 1 -d "." <<< $ref_seq_filename`
@@ -37,6 +38,9 @@ if [ ! -f "${bowtie_library_name}" ]; then           #if ${ref_seq_basename}.1.b
 	else
        		echo "Bowtie2 library for ${ref_seq_filename} is present in ${ref_seq_dir}"
 fi
+
+echo "\n--------------------\nAligning bulks to refrence sequence"
+echo "--------------------"
 
 printf "Directory to get trimmed readfiles: "; Set_BULK_NAME
 
@@ -114,8 +118,10 @@ done									# go onto mybulk_B
 # --------------------
 # Call SNPs and determine genotypes
 # --------------------
+
 combined_vcf_file="${combined_vcf_file}vcf_file.vcf.gz"
-echo "\n--------------------\nSNP and INDEL calling using bcftools" 
+echo "\n--------------------\nCalling variants in combined vcf file using bcftools" 
+echo "--------------------"
 printf "bam files used:\n"; cat bulk_alignment_filenames
 printf "bcftools mpileup options used: "; Set_BCFT_MPILEUP_BULK
 printf "bcftools call options used: "; Set_BCFT_CALL_BULK
