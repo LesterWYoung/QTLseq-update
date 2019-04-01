@@ -13,7 +13,7 @@ Key0_Make_secondary_reference="yes/no"			#delete one or the other. Leave "yes" t
 Key1_Bulked_sample_name="mybulk"				#this is the prefix for the directory with the trimmed readfiles
 Key1_Bulked_sample_Type_A="A"					#change this to name of bulk if desired e.g. "susceptible" or "short"
 Key1_Bulked_sample_Type_B="B"					#change this to name of bulk if desired. e.g "resistant" or "tall": LY
-Key1_My_cultivar_sample_name="anyname"				#name of secondary reference. Leave as "" if secondary not being made
+Key1_My_cultivar_sample_name=""					#name of secondary reference. Leave as "" if secondary not being made
 				
 # ##################################################				
 # Qualify read				
@@ -29,7 +29,7 @@ Key1_Min_length_my_cultivar_reads=90				# Trimmomatic removes trimmed reads shor
 # ##################################################				
 # Developing reference sequence 				
 # ##################################################				
-#Key2_Path_public_reference_FASTA="./downloaded_fasta/INSERT_ref_seq_fasta_filename_here"
+Key2_Path_public_reference_FASTA="./downloaded_fasta/INSERT_ref_seq_fasta_filename_here"
 								#Change INSERT_ref_seq_fasta_filename_here to reference sequence
 								#Put .fasta file with reference sequence into ./downloaded_fasta 				
 				
